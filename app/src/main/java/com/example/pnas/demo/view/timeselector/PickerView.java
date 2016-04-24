@@ -107,13 +107,17 @@ public class PickerView extends View {
         invalidate();
     }
 
+    public int getCurrentSelected() {
+        return mCurrentSelected;
+    }
+
     /**
      * 获取选择项
      *
      * @return
      */
-    public int getCurrentSelected() {
-        return mCurrentSelected;
+    public String getCurrentSelectedText() {
+        return mDataList.get(mCurrentSelected);
     }
 
     /**

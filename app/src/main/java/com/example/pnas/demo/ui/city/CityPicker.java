@@ -122,8 +122,7 @@ public class CityPicker extends LinearLayout {
 
             Iterator iterator = result.entrySet().iterator();
             while (iterator.hasNext()) {
-                Map.Entry<String, JsonElement> entry = (Map.Entry<String, JsonElement>) iterator
-                        .next();
+                Map.Entry<String, JsonElement> entry = (Map.Entry<String, JsonElement>) iterator.next();
                 List<Cityinfo> list = new ArrayList<Cityinfo>();
                 JsonArray array = entry.getValue().getAsJsonArray();
                 for (int i = 0; i < array.size(); i++) {

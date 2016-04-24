@@ -19,9 +19,9 @@ import com.example.pnas.demo.view.timeselector.PickerView;
 public class AreaCodePopup extends PopupWindow implements View.OnClickListener {
 
     private final Context mContext;
-    private final PickerView mPickerView;
 
     private String mAddressCode;
+    private CityPicker mCityPicker;
 
     public AreaCodePopup(Context context) {
         super(context);
@@ -35,11 +35,13 @@ public class AreaCodePopup extends PopupWindow implements View.OnClickListener {
         inflate.findViewById(R.id.dialog_area_code_cancel).setOnClickListener(this);
         inflate.findViewById(R.id.dialog_area_code_confirm).setOnClickListener(this);
 
-        mPickerView = ((PickerView) inflate.findViewById(R.id.dialog_area_code_picker));
+        mCityPicker = ((CityPicker) inflate.findViewById(R.id.dialog_area_code_city_picker));
+
 
         this.setBackgroundDrawable(null);
-        //设置动画
+        // 设置动画
         this.setAnimationStyle(R.style.dialog_comment_style);
+        // 设置宽高
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setOutsideTouchable(true);
