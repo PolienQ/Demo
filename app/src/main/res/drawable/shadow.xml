@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <!-- 第一层 -->
+            <item android:top="4dp">
+                <shape>
+                    <stroke android:width="0dp"/>
+                    <gradient android:angle="90"
+                              android:endColor="@android:color/black"
+                              android:startColor="@android:color/white"/>
+                </shape>
+            </item>
+            <!-- 第二层 -->
+            <item android:bottom="4dp">
+                <shape>
+                    <solid android:color="@android:color/white"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

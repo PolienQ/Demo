@@ -1,0 +1,72 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="title_style">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Loading框样式 -->
+    <style name="Dialog" parent="android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景昏暗是否启用 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- dialog背景1 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- dialog背景2 -->
+        <!-- <item name="android:background">@anim/list_single_selector</item> -->
+    </style>
+
+    <!-- Dialog -->
+    <style name="YxDialog.Alert" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@mipmap/bg_alert_dialog</item>
+        <item name="android:windowBackground">@mipmap/bg_alert_dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--<item name="android:windowAnimationStyle">@style/YxAlertDialogAnimation</item>-->
+    </style>
+
+    <!-- 灰色竖线 -->
+    <style name="list_cell_divider_horizontal">
+        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <!-- 灰色横线 -->
+    <style name="list_cell_divider_vertical">
+        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+    <!--  评论的弹出框动画  -->
+    <style name="dialog_comment_style" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_comment_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_comment_exit</item>
+    </style>
+
+    <!--  时间选择联动滚轮的样式  -->
+    <style name="time_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+</resources>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp">
+
+    <!-- 左边的时间  -->
+    <LinearLayout
+        android:id="@+id/item_vacation_details_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:paddingTop="24dp">
+
+        <TextView
+            android:id="@+id/item_vacation_details_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-11-08"
+            android:textColor="@color/gray_03"/>
+
+        <TextView
+            android:id="@+id/item_vacation_details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19:00"
+            android:textColor="@color/gray_05"/>
+    </LinearLayout>
+
+
+    <!--  中间的点和线  -->
+    <LinearLayout
+        android:id="@+id/item_vacation_details_02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/item_vacation_details_01"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/item_wage_view_top"
+            android:layout_width="1dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@android:color/darker_gray"/>
+
+        <View
+            android:id="@+id/item_wage_view"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/shape_wage_point_normal"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@android:color/darker_gray"/>
+
+    </LinearLayout>
+
+    <!--  右边的头像和信息  -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/item_vacation_details_02"
+        android:layout_toRightOf="@id/item_vacation_details_02"
+        android:background="@drawable/shape_vacation_details"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/item_vacation_details_empimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_portrait_default"/>
+
+        <TextView
+            android:id="@+id/item_vacation_details_empname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_toRightOf="@id/item_vacation_details_empimage"
+            android:text="李俊杰"
+            android:textColor="@color/gray_03"/>
+
+        <TextView
+            android:id="@+id/item_vacation_details_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_10"
+            android:text="发起申请"
+            android:textColor="@color/gray_03"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

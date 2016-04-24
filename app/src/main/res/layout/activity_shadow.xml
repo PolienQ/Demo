@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_50"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:gravity="center"
+        android:text="111"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_10"
+        android:background="@drawable/shadow2"/>
+
+</LinearLayout>
