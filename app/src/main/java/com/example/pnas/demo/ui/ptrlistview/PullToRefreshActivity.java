@@ -102,6 +102,8 @@ public class PullToRefreshActivity extends BaseActivity {
     }
 
     private class ViewHolder {
+
         TextView tvText;
+
     }
 }
