@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.pnas.demo.base.BaseActivity;
 import com.example.pnas.demo.base.MyApplication;
 import com.example.pnas.demo.ui.anmi.AnimationActivity;
 import com.example.pnas.demo.ui.area.AreaCodeActivity;
@@ -27,8 +29,9 @@ import com.example.pnas.demo.ui.share.ShareActivity;
 import com.example.pnas.demo.ui.timer.TimerActivity;
 import com.example.pnas.demo.ui.year.YearTabActivity;
 import com.example.pnas.demo.view.LineGridView;
+import com.umeng.analytics.MobclickAgent;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     private LineGridView mGridView;
 
@@ -39,6 +42,7 @@ public class MainActivity extends Activity {
             PullToRefreshActivity.class, TimerActivity.class, RecyclerViewActivity.class, AnimationActivity.class,
             ShadowActivity.class, ShareActivity.class, ScanActivity.class, Scan2Activity.class,
             AreaCodeActivity.class, CityActivity.class};
+    private double exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,20 @@ public class MainActivity extends Activity {
         initView();
         initData();
         initEvent();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                showToast("再按一次返回键退出程序");
+                exitTime = System.currentTimeMillis();
+                return true;
+            }
+            exit();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void initView() {

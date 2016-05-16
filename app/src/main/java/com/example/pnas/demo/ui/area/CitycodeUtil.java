@@ -111,8 +111,7 @@ public class CitycodeUtil {
 
     }
 
-    public ArrayList<String> getCouny(
-            HashMap<String, List<Cityinfo>> cityHashMap, String citycode) {
+    public ArrayList<String> getCouny(HashMap<String, List<Cityinfo>> cityHashMap, String citycode) {
         System.out.println("citycode" + citycode);
         List<Cityinfo> couny = null;
         if (couny_list_code.size() > 0) {

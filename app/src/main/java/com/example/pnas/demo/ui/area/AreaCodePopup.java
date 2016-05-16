@@ -37,7 +37,6 @@ public class AreaCodePopup extends PopupWindow implements View.OnClickListener {
 
         mCityPicker = ((CityPicker) inflate.findViewById(R.id.dialog_area_code_city_picker));
 
-
         this.setBackgroundDrawable(null);
         // 设置动画
         this.setAnimationStyle(R.style.dialog_comment_style);

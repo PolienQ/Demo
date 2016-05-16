@@ -4,7 +4,7 @@ import android.os.Environment;
 
 
 import com.example.pnas.demo.base.MyApplication;
-import com.example.pnas.demo.entity.IConstant;
+import com.example.pnas.demo.constacts.IConstant;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

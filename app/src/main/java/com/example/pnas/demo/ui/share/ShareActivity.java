@@ -34,6 +34,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
         initView();
         initData();
         initEvent();
+
     }
 
     private void initView() {

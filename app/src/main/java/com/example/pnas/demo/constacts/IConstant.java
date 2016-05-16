@@ -1,4 +1,4 @@
-package com.example.pnas.demo.entity;
+package com.example.pnas.demo.constacts;
 
 /***********
  * @author 彭浩楠
@@ -7,6 +7,9 @@ package com.example.pnas.demo.entity;
  */
 public interface IConstant {
 
-
     String FILE_IMAGE_PATH = "Demo";
+
+    String UMENG_SOCIAL_SERVICE = "";
+
+
 }

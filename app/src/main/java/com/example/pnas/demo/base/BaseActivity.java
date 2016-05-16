@@ -1,5 +1,6 @@
 package com.example.pnas.demo.base;
 
+import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,9 @@ import android.view.Window;
 import com.example.pnas.demo.utils.LogUtil;
 import com.example.pnas.demo.utils.ToastUtil;
 import com.example.pnas.demo.utils.ToolUtils;
+import com.umeng.analytics.MobclickAgent;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class BaseActivity extends FragmentActivity {
 
@@ -19,6 +23,7 @@ public class BaseActivity extends FragmentActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         super.onCreate(savedInstanceState);
+        MyApplication.getContext().activityManager.add(this);
 
     }
 
@@ -32,8 +37,25 @@ public class BaseActivity extends FragmentActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         super.onResume();
+        // 友盟统计同步
+        MobclickAgent.onResume(this);
+        JPushInterface.onResume(this);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // 友盟统计同步
+        MobclickAgent.onPause(this);
+        JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.getContext().activityManager.remove(this);
+
+    }
 
     /******
      * 显示提示框
@@ -78,6 +100,20 @@ public class BaseActivity extends FragmentActivity {
     // 判断网络是否可用
     public boolean isNetworkAvailable() {
         return ToolUtils.isNetworkAvailable(this.getApplicationContext());
+    }
+
+    // 退出应用
+    public void exit() {
+        // 关闭栈内所有的Activity
+        for (Activity activity : MyApplication.getContext().activityManager) {
+            activity.finish();
+        }
+
+        // 友盟同步结束程序线程
+        MobclickAgent.onKillProcess(this);
+
+        // 释放相关的引用资源，比如单例类
+
     }
 
 }
