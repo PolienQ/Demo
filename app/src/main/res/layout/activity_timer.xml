@@ -2,21 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical">
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              android:paddingTop="@dimen/margin_30">
 
-    <TextView
-        android:id="@+id/timer_tv_count"
+    <Button
+        android:id="@+id/timer_btn_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_30"
-        android:text="计时"
-        android:textSize="@dimen/margin_40"/>
+        android:text="获取当前时间"/>
 
-    <TextView
-        android:id="@+id/timer_tv_present"
+    <Button
+        android:id="@+id/timer_btn_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="跳转"
-        android:textSize="@dimen/margin_40"/>
+        android:text="get_Date_Instance"/>
+
+    <Button
+        android:id="@+id/timer_btn_02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="get_Time_Instance"/>
+
+    <Button
+        android:id="@+id/timer_btn_03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="get_Date_Time_Instance"/>
+
+    <EditText
+        android:id="@+id/timer_et_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="输入日期"
+        android:text="2016-05-20 10:22"/>
+
+    <Button
+        android:id="@+id/timer_btn_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取日期"/>
+
+    <TextView
+        android:id="@+id/timer_tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示日期"/>
 </LinearLayout>

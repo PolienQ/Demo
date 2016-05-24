@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/margin_10"
-        android:text="条目"/>
+        android:text="条目"
+        android:textColor="@android:color/black"/>
 
 </LinearLayout>

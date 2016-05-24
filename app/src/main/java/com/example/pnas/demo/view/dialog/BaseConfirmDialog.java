@@ -1,6 +1,7 @@
 package com.example.pnas.demo.view.dialog;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.pnas.demo.R;
+import com.example.pnas.demo.utils.ToolUtils;
 
 
 /***********
@@ -68,6 +70,10 @@ public class BaseConfirmDialog extends BaseDialog implements OnClickListener {
         tvConfirmCancel.setText(R.string.base_cancel);
     }
 
+    public String getEtAddName() {
+        return etAddName.getText().toString();
+    }
+
     public void showDialog(int x, int y) {
         windowDeploy(x, y);
         // 设置触摸对话框以外的地方取消对话框  true:点击dialog之外关闭  false:点击dialog之外不关闭
@@ -103,6 +109,7 @@ public class BaseConfirmDialog extends BaseDialog implements OnClickListener {
 
                 if (null != listener)
                     listener.onOKBtnClick();
+                ToolUtils.hideSoftInput((Activity) mContext);
                 dismiss();
                 break;
         }

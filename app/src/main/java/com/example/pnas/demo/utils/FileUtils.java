@@ -75,7 +75,7 @@ public class FileUtils {
      * @return
      */
     private static String getDataDir(String string) {
-        String path = MyApplication.getContext().getCacheDir().getAbsolutePath() + File.separator + string;
+        String path = MyApplication.getInstance().getCacheDir().getAbsolutePath() + File.separator + string;
         File file = new File(path);
         if (!file.exists()) {
             if (file.mkdirs()) {

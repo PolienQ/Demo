@@ -19,22 +19,24 @@ public class BaseDialog extends Dialog {
 
     protected String errCode;
     protected ConfirmDialogBtnClickListener listener;
+    protected Context mContext;
 
     public BaseDialog(Activity activity) {
         super(activity, R.style.YxDialog_Alert);
     }
 
     public BaseDialog(Context context) {
-        super(context, R.style.YxDialog_Alert);
-    }
-
-    public BaseDialog(Context context, int theme) {
-        super(context, R.style.YxDialog_Alert);
+        this(context, R.style.YxDialog_Alert);
     }
 
     public BaseDialog(Context context, ConfirmDialogBtnClickListener dialogBtnClickListener) {
-        super(context, R.style.YxDialog_Alert);
+        this(context, R.style.YxDialog_Alert);
         listener = dialogBtnClickListener;
+    }
+
+    public BaseDialog(Context context, int theme) {
+        super(context, theme);
+        mContext = context;
     }
 
     public void setListener(ConfirmDialogBtnClickListener listener) {

@@ -16,13 +16,13 @@
             android:padding="@dimen/margin_10">
 
             <TextView
-                android:id="@+id/tv_cancle"
+                android:id="@+id/tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:text="取消"
-                android:textColor="@color/red_01"
+                android:textColor="@color/blue_03"
                 android:textSize="16sp" />
 
 
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="请选择日期"
-                android:textColor="@color/red_01"
+                android:textColor="@color/blue_03"
                 android:textSize="20sp" />
 
 
@@ -44,7 +44,7 @@
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:text="选择"
-                android:textColor="@color/red_01"
+                android:textColor="@color/blue_03"
                 android:textSize="16sp" />
 
         </RelativeLayout>
@@ -70,7 +70,7 @@
                 android:paddingRight="20dp"
                 android:paddingTop="15dp">
 
-                <com.efesco.yfyandroid.common.timeselector.PickerView
+                <com.example.pnas.demo.view.timeselector.PickerView
                     android:id="@+id/year_pv"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_160"
@@ -85,7 +85,7 @@
                     android:textColor="#333333"
                     android:textSize="18sp" />
 
-                <com.efesco.yfyandroid.common.timeselector.PickerView
+                <com.example.pnas.demo.view.timeselector.PickerView
                     android:id="@+id/month_pv"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_160"
@@ -100,7 +100,7 @@
                     android:textColor="#333333"
                     android:textSize="18sp" />
 
-                <com.efesco.yfyandroid.common.timeselector.PickerView
+                <com.example.pnas.demo.view.timeselector.PickerView
                     android:id="@+id/day_pv"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/margin_160"

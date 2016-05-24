@@ -109,7 +109,6 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
         Uri uri = Uri.parse(uriString);
         InputStream input = null;
         try {
-//            input = MyApplication.getContext().getContentResolver().openInputStream(uri);
             input = new BufferedInputStream(new FileInputStream(uriString), 2 * 1024);
             bitmap = BitmapFactory.decodeStream(input, null, opt);
             input.close();

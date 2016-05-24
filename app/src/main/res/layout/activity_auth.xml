@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/app_auth_sina"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickAuth"
+                android:text="@string/umeng_socialize_text_sina_key"/>
+
+            <Button
+                android:id="@+id/app_auth_weixin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickAuth"
+                android:text="@string/umeng_socialize_text_weixin_key"/>
+
+            <Button
+                android:id="@+id/app_auth_qq"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickAuth"
+                android:text="@string/umeng_socialize_text_qq_key"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/app_del_auth_sina"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickDeletAuth"
+                android:text="@string/umeng_deleauth"/>
+
+            <Button
+                android:id="@+id/app_del_auth_weixin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickDeletAuth"
+                android:text="@string/umeng_deleauth"/>
+
+            <Button
+                android:id="@+id/app_del_auth_qq"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickDeletAuth"
+                android:text="@string/umeng_deleauth"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/getfriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getFriendbyClick"
+        android:text="新浪好友列表"/>
+
+    <TextView
+        android:id="@+id/auth_access_token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:textSize="@dimen/margin_16"
+        tools:text="access token"/>
+</LinearLayout>

@@ -2,10 +2,10 @@ package com.example.pnas.demo.base;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.os.Handler;
 
 import com.example.pnas.demo.utils.LogUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.PlatformConfig;
 
@@ -21,7 +21,7 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyApplication extends Application {
 
-    private static MyApplication mContext;
+    private static MyApplication instance;
     private static Handler mHandler = new Handler();
     public static int count = 60;
     public List<Activity> activityManager; // 管理Activity栈
@@ -31,7 +31,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        mContext = this;
+        instance = this;
 
         LogUtil.isDebug = true;
 
@@ -56,10 +56,13 @@ public class MyApplication extends Application {
         MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig(this, "5718a5cee0f55a388d0022bf", "google");
         MobclickAgent.startWithConfigure(config);
 
+        // QQbugly
+        CrashReport.initCrashReport(getApplicationContext(), "900030821", false);
+
     }
 
-    public static MyApplication getContext() {
-        return mContext;
+    public static MyApplication getInstance() {
+        return instance;
     }
 
     public static Handler getHandler() {

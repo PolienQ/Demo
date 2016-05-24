@@ -1,6 +1,8 @@
 package com.example.pnas.demo.ui.ptrlistview;
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,7 +12,6 @@ import android.widget.TextView;
 import com.example.pnas.demo.R;
 import com.example.pnas.demo.base.BaseActivity;
 import com.example.pnas.demo.base.MyApplication;
-import com.example.pnas.demo.view.PullToRefresh.PtrClassicFrameLayout;
 
 import java.util.ArrayList;
 
@@ -22,9 +23,10 @@ import java.util.ArrayList;
  */
 public class PullToRefreshActivity extends BaseActivity {
 
-    private PtrClassicFrameLayout mPtrClassicFrameLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private ListView mListView;
     private ArrayList<String> mData;
+    private PtrAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,31 @@ public class PullToRefreshActivity extends BaseActivity {
     }
 
     private void initView() {
-        mPtrClassicFrameLayout = ((PtrClassicFrameLayout) findViewById(R.id.ptr_header_list_view_frame));
+        mSwipeRefreshLayout = ((SwipeRefreshLayout) findViewById(R.id.ptr_header_list_view_frame));
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.red_01, R.color.blue_01, android.R.color.holo_orange_dark);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        SystemClock.sleep(2000);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshData();
+                            }
+                        });
+                    }
+                }).start();
+
+            }
+
+        });
 
         mListView = ((ListView) findViewById(R.id.ptr_list_view));
     }
@@ -46,12 +72,12 @@ public class PullToRefreshActivity extends BaseActivity {
 
         mData = new ArrayList<>();
 
-        for (int x = 0; x < 30; x++) {
+        for (int x = 0; x < 10; x++) {
             mData.add("条目 " + x);
         }
 
-        PtrAdapter adapter = new PtrAdapter();
-        mListView.setAdapter(adapter);
+        mAdapter = new PtrAdapter();
+        mListView.setAdapter(mAdapter);
 
     }
 
@@ -59,22 +85,29 @@ public class PullToRefreshActivity extends BaseActivity {
 
     }
 
+    private void refreshData() {
+
+        mData.clear();
+        for (int x = 0; x < 10; x++) {
+            mData.add("刷新的条目 " + x);
+        }
+
+        mAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.setRefreshing(false);
+        showToast("刷新成功");
+
+    }
+
     private class PtrAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            if (mData != null) {
-                return mData.size();
-            }
-            return 0;
+            return mData == null ? 0 : mData.size();
         }
 
         @Override
         public Object getItem(int position) {
-            if (mData != null) {
-                return mData.get(position);
-            }
-            return null;
+            return mData == null ? null : mData.get(position);
         }
 
         @Override
@@ -87,7 +120,7 @@ public class PullToRefreshActivity extends BaseActivity {
             ViewHolder holder;
             if (convertView == null) {
                 holder = new ViewHolder();
-                convertView = View.inflate(MyApplication.getContext(), R.layout.item_ptr_list_view, null);
+                convertView = View.inflate(MyApplication.getInstance(), R.layout.item_ptr_list_view, null);
                 holder.tvText = ((TextView) convertView.findViewById(R.id.item_ptr_tv_text));
                 convertView.setTag(holder);
             } else {

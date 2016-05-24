@@ -1,6 +1,7 @@
 package com.example.pnas.demo.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -23,7 +24,7 @@ public class BaseActivity extends FragmentActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         super.onCreate(savedInstanceState);
-        MyApplication.getContext().activityManager.add(this);
+        MyApplication.getInstance().activityManager.add(this);
 
     }
 
@@ -53,7 +54,7 @@ public class BaseActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MyApplication.getContext().activityManager.remove(this);
+        MyApplication.getInstance().activityManager.remove(this);
 
     }
 
@@ -63,7 +64,7 @@ public class BaseActivity extends FragmentActivity {
      * @param msg
      */
     public void showToast(String msg) {
-        ToastUtil.showShortToast(this, msg);
+        ToastUtil.showShortToast(msg);
     }
 
     /***********
@@ -105,7 +106,7 @@ public class BaseActivity extends FragmentActivity {
     // 退出应用
     public void exit() {
         // 关闭栈内所有的Activity
-        for (Activity activity : MyApplication.getContext().activityManager) {
+        for (Activity activity : MyApplication.getInstance().activityManager) {
             activity.finish();
         }
 
@@ -114,6 +115,33 @@ public class BaseActivity extends FragmentActivity {
 
         // 释放相关的引用资源，比如单例类
 
+    }
+
+    /************
+     * 跳转
+     *
+     * @param cls
+     */
+    public void presentController(Class cls) {
+        presentController(cls, null);
+    }
+
+    /************
+     * 跳转
+     *
+     * @param cls
+     * @param data
+     */
+    public void presentController(Class cls, Intent data) {
+        Intent intent = new Intent(this, cls);
+        if (data != null) {
+            intent.putExtras(data);
+        }
+        startActivity(intent);
+
+        // 第一个参数：进入的
+        // 第二个参数：退出的
+//        this.overridePendingTransition(R.anim.inside_translate, R.anim.outside_translate);
     }
 
 }

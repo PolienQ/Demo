@@ -22,16 +22,10 @@ import com.example.pnas.demo.base.MyApplication;
 import java.util.ArrayList;
 import java.util.List;
 
-/***********
- * @author 彭浩楠
- * @date 2016/1/29
- * @describ
- */
 public class RecyclerViewActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private List<String> mData;
-    private LinearLayoutManager mLinearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +39,21 @@ public class RecyclerViewActivity extends BaseActivity {
 
 
     private void initView() {
+
         mRecyclerView = ((RecyclerView) findViewById(R.id.recyclerview_recycler_view));
 
         //设置布局管理器
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         // 设置RecyclerView的方向
-        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
         //设置Item增加、移除动画
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        //添加分割线
+        mRecyclerView.addItemDecoration(new ItemDivider(this, R.drawable.divider_bg));
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
     }
 
     private void initData() {
@@ -63,15 +61,14 @@ public class RecyclerViewActivity extends BaseActivity {
             mData = new ArrayList<>();
         }
 
-        for (int i = 'A'; i < 'z'; i++) {
+        for (int i = 'A'; i <= 'z'; i++) {
             mData.add("" + (char) i);
         }
 
         //设置adapter
         RecyclerViewAdapter adapter = new RecyclerViewAdapter();
         mRecyclerView.setAdapter(adapter);
-        //添加分割线
-        mRecyclerView.addItemDecoration(new ItemDivider(MyApplication.getContext(), R.drawable.divider_bg));
+
 
     }
 
@@ -88,9 +85,8 @@ public class RecyclerViewActivity extends BaseActivity {
         @Override
         public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // 返回下面设置好Item的ViewHolder
-            RecyclerViewHolder holder = new RecyclerViewHolder(LayoutInflater.from(MyApplication.getContext())
+            return new RecyclerViewHolder(LayoutInflater.from(MyApplication.getInstance())
                     .inflate(R.layout.item_recycler_view, parent, false));
-            return holder;
         }
 
         @Override
@@ -98,6 +94,7 @@ public class RecyclerViewActivity extends BaseActivity {
             // 设置Item的数据
             holder.tv.setText(mData.get(position));
             holder.tv.setTextColor(Color.BLACK);
+
         }
 
         @Override
@@ -116,16 +113,17 @@ public class RecyclerViewActivity extends BaseActivity {
                 super(itemView);
                 tv = (TextView) itemView.findViewById(R.id.item_recycler_view_tv);
             }
+
         }
     }
 
     private class ItemDivider extends RecyclerView.ItemDecoration {
 
-        private final Drawable mDrawable;
+        private final Drawable mDivider;
 
         public ItemDivider(Context context, int resId) {
             //在这里我们传入作为Divider的Drawable对象
-            mDrawable = ContextCompat.getDrawable(context, resId);
+            mDivider = ContextCompat.getDrawable(context, resId);
         }
 
         @Override
@@ -142,17 +140,18 @@ public class RecyclerViewActivity extends BaseActivity {
 
                 // 获取item的bottom的值,该值为分割线的y轴绘制开始点
                 int top = child.getBottom() + params.bottomMargin;
-                int bottom = top + mDrawable.getIntrinsicHeight();
-                mDrawable.setBounds(left, top, right, bottom);
-                mDrawable.draw(c);
+                int bottom = top + mDivider.getIntrinsicHeight();
+                mDivider.setBounds(left, top, right, bottom);
+                mDivider.draw(c);
 
             }
         }
 
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0, 0, 0, mDrawable.getIntrinsicWidth());
+//            super.getItemOffsets(outRect, view, parent, state);
+            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+
         }
     }
 }

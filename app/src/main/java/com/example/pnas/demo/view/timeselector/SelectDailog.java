@@ -50,7 +50,7 @@ public class SelectDailog {
 
         selectView = (PickerView)seletorDialog.findViewById(R.id.selectView);
 
-        TextView textView = (TextView) seletorDialog.findViewById(R.id.tv_cancle);
+        TextView textView = (TextView) seletorDialog.findViewById(R.id.tv_cancel);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

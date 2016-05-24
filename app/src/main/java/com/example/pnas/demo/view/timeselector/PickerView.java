@@ -107,17 +107,17 @@ public class PickerView extends View {
         invalidate();
     }
 
-    public int getCurrentSelected() {
-        return mCurrentSelected;
-    }
-
     /**
      * 获取选择项
      *
-     * @return
+     * @return 当前所选的文字信息
      */
-    public String getCurrentSelectedText() {
+    public String getCurrentText() {
         return mDataList.get(mCurrentSelected);
+    }
+
+    public int getCurrentSelected() {
+        return mCurrentSelected;
     }
 
     /**
@@ -147,11 +147,12 @@ public class PickerView extends View {
      * @param mSelectItem
      */
     public void setSelected(String mSelectItem) {
-        for (int i = 0; i < mDataList.size(); i++)
-            if (mDataList.get(i).equals(mSelectItem)) {
+        for (int i = 0; i < mDataList.size(); i++) {
+            if (mDataList.get(i).contentEquals(mSelectItem)) {
                 setSelected(i);
                 break;
             }
+        }
     }
 
 
@@ -182,7 +183,6 @@ public class PickerView extends View {
     private void init() {
         timer = new Timer();
         mDataList = new ArrayList<String>();
-        /*  这里添加测试的数据会导致上面不显示  */
         mDataList.add("测试1");
         mDataList.add("测试2");
         mDataList.add("测试3");
@@ -192,7 +192,7 @@ public class PickerView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.FILL);
         mPaint.setTextAlign(Align.CENTER);
-        mPaint.setColor(getResources().getColor(R.color.red_01));
+        mPaint.setColor(getResources().getColor(R.color.blue_03));
         //第二个paint
         nPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         nPaint.setStyle(Style.FILL);

@@ -1,4 +1,4 @@
-package com.example.pnas.demo.ui.listview;
+package com.example.pnas.demo.ui.list_weipan;
 
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pnas.demo.R;

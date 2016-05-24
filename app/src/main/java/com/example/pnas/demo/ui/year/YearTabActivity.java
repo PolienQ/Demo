@@ -88,7 +88,7 @@ public class YearTabActivity extends FragmentActivity {
 //            return super.instantiateItem(container, position);
             String str = mData.get(position);
 
-            View view = View.inflate(MyApplication.getContext(), R.layout.pager_year, null);
+            View view = View.inflate(MyApplication.getInstance(), R.layout.pager_year, null);
             TextView tv = (TextView) view.findViewById(R.id.year_tv);
             tv.setText("第" + str + "个页面");
 

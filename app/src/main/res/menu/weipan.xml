@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/weipan_icon_upload"
+        android:icon="@mipmap/icon_upload"
+        android:title=""
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/weipan_icon_download"
+        android:icon="@mipmap/icon_download"
+        android:title=""
+        app:showAsAction="ifRoom"/>
+    <item
+        android:icon="@mipmap/icon_action_home_category"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:icon="@mipmap/icon_download"
+                android:title="222"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:icon="@mipmap/icon_download"
+                android:title="222"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:icon="@mipmap/icon_download"
+                android:title="222"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
+
+</menu>

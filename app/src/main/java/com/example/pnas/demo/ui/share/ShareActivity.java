@@ -39,6 +39,13 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
 
     private void initView() {
         mButton = ((Button) findViewById(R.id.share_btn));
+
+        findViewById(R.id.share_btn_auth).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presentController(AuthActivity.class);
+            }
+        });
     }
 
     private void initData() {

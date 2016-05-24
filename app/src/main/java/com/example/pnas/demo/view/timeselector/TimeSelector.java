@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -13,12 +14,14 @@ import android.widget.Toast;
 
 
 import com.example.pnas.demo.R;
+import com.example.pnas.demo.utils.LogUtil;
 import com.example.pnas.demo.utils.ScreenUtil;
 import com.example.pnas.demo.utils.ToastUtil;
 import com.example.pnas.demo.utils.ToolUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by liuli on 2015/11/27.
@@ -67,7 +70,8 @@ public class TimeSelector {
     private String workEnd_str;
     private Calendar startCalendar;
     private Calendar endCalendar;
-    private TextView tv_cancle;
+    private Calendar currCalendar;
+    private TextView tv_cancel;
     private TextView tv_select;
 
     private int type; // 1表示时间对话框、2表示日期对话框
@@ -83,8 +87,36 @@ public class TimeSelector {
         this.handler = resultHandler;
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
-        startCalendar.setTime(ToolUtils.parse(startDate, FORMAT_STR));
-        endCalendar.setTime(ToolUtils.parse(endDate, FORMAT_STR));
+        currCalendar = Calendar.getInstance();
+        Date parse = ToolUtils.parse(startDate, FORMAT_STR);
+        if (parse == null) {
+            throw new RuntimeException("startDate 不正确");
+        }
+        startCalendar.setTime(parse);
+        parse = ToolUtils.parse(endDate, FORMAT_STR);
+        if (parse == null) {
+            throw new RuntimeException("endDate 不正确");
+        }
+        endCalendar.setTime(parse);
+        currCalendar.setTime(new Date(System.currentTimeMillis()));
+    }
+
+    /**
+     * 构造函数
+     *
+     * @param context
+     * @param resultHandler
+     * @param startDate
+     * @param endDate
+     * @param currDate
+     */
+    public TimeSelector(Context context, ResultHandler resultHandler, String startDate, String endDate, String currDate) {
+        this(context, resultHandler, startDate, endDate);
+        Date parse = ToolUtils.parse(currDate, "yyyy-MM-dd");
+        if (parse == null) {
+            throw new RuntimeException("currDate 不正确");
+        }
+        currCalendar.setTime(parse);
     }
 
     /**
@@ -100,22 +132,6 @@ public class TimeSelector {
         this.workEnd_str = workEndTime;
     }
 
-    public void show() {
-        if (startCalendar.getTime().getTime() >= endCalendar.getTime().getTime()) {
-            ToastUtil.showLongToast(context, "起始时间应小于结束时间");
-            return;
-        }
-
-        if (!excuteWorkTime()) {
-            return;
-        }
-
-        initParameter();
-        initTimer();
-        addListener();
-        seletorDialog.show();
-    }
-
     /*********
      * 加载时间对对话框
      */
@@ -128,8 +144,7 @@ public class TimeSelector {
             Window window = seletorDialog.getWindow();
             window.setGravity(Gravity.BOTTOM);
             WindowManager.LayoutParams lp = window.getAttributes();
-            int width = ScreenUtil.getInstance(context).getScreenWidth();
-            lp.width = width;
+            lp.width = ScreenUtil.getInstance(context).getScreenWidth();
             window.setAttributes(lp);
         }
 
@@ -146,10 +161,10 @@ public class TimeSelector {
         day_pv = (PickerView) seletorDialog.findViewById(R.id.day_pv);
         hour_pv = (PickerView) seletorDialog.findViewById(R.id.hour_pv);
         minute_pv = (PickerView) seletorDialog.findViewById(R.id.minute_pv);
-        tv_cancle = (TextView) seletorDialog.findViewById(R.id.tv_cancle);
+        tv_cancel = (TextView) seletorDialog.findViewById(R.id.tv_cancel);
         tv_select = (TextView) seletorDialog.findViewById(R.id.tv_select);
 
-        tv_cancle.setOnClickListener(new View.OnClickListener() {
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 seletorDialog.dismiss();
@@ -171,20 +186,26 @@ public class TimeSelector {
      * 加载日期对对话框
      */
     public void initDateDialog() {
+        initDateDialog(false);
+    }
+
+    /*********
+     * 加载日期对对话框
+     */
+    public void initDateDialog(boolean cancel) {
         if (seletorDialog == null) {
             seletorDialog = new Dialog(context, R.style.time_dialog);
-            seletorDialog.setCancelable(false);
+            seletorDialog.setCancelable(cancel);
             seletorDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             seletorDialog.setContentView(R.layout.dialog_date_selector);
             Window window = seletorDialog.getWindow();
             window.setGravity(Gravity.BOTTOM);
             WindowManager.LayoutParams lp = window.getAttributes();
-            int width = ScreenUtil.getInstance(context).getScreenWidth();
-            lp.width = width;
+            lp.width = ScreenUtil.getInstance(context).getScreenWidth();
             window.setAttributes(lp);
         }
         type = 2;
-        initTimerView();
+        initDateView();
     }
 
     /*********
@@ -194,10 +215,10 @@ public class TimeSelector {
         year_pv = (PickerView) seletorDialog.findViewById(R.id.year_pv);
         month_pv = (PickerView) seletorDialog.findViewById(R.id.month_pv);
         day_pv = (PickerView) seletorDialog.findViewById(R.id.day_pv);
-        tv_cancle = (TextView) seletorDialog.findViewById(R.id.tv_cancle);
+        tv_cancel = (TextView) seletorDialog.findViewById(R.id.tv_cancel);
         tv_select = (TextView) seletorDialog.findViewById(R.id.tv_select);
 
-        tv_cancle.setOnClickListener(new View.OnClickListener() {
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 seletorDialog.dismiss();
@@ -214,6 +235,72 @@ public class TimeSelector {
 
     }
 
+    public void show() {
+        if (startCalendar.getTime().getTime() >= endCalendar.getTime().getTime()) {
+            ToastUtil.showLongToast("起始时间应小于结束时间");
+            return;
+        }
+
+        if (!excuteWorkTime()) {
+            return;
+        }
+
+        initParameter();
+        initArrayList();
+        initTimer();
+        loadComponent();
+        excuteScroll();
+        addListener();
+        seletorDialog.show();
+    }
+
+    private boolean excuteWorkTime() {
+
+        if (!ToolUtils.isEmpty(workStart_str) && !ToolUtils.isEmpty(workEnd_str)) {
+            String[] start = workStart_str.split(":");
+            String[] end = workEnd_str.split(":");
+            hour_workStart = Integer.parseInt(start[0]);
+            minute_workStart = Integer.parseInt(start[1]);
+            hour_workEnd = Integer.parseInt(end[0]);
+            minute_workEnd = Integer.parseInt(end[1]);
+            Calendar workStartCalendar = Calendar.getInstance();
+            Calendar workEndCalendar = Calendar.getInstance();
+            workStartCalendar.setTime(startCalendar.getTime());
+            workEndCalendar.setTime(endCalendar.getTime());
+            workStartCalendar.set(Calendar.HOUR_OF_DAY, hour_workStart);
+            workStartCalendar.set(Calendar.MINUTE, minute_workStart);
+            workEndCalendar.set(Calendar.HOUR_OF_DAY, hour_workEnd);
+            workEndCalendar.set(Calendar.MINUTE, minute_workEnd);
+
+
+            Calendar startTime = Calendar.getInstance();
+            Calendar endTime = Calendar.getInstance();
+            Calendar startWorkTime = Calendar.getInstance();
+            Calendar endWorkTime = Calendar.getInstance();
+
+            startTime.set(Calendar.HOUR_OF_DAY, startCalendar.get(Calendar.HOUR_OF_DAY));
+            startTime.set(Calendar.MINUTE, startCalendar.get(Calendar.MINUTE));
+            endTime.set(Calendar.HOUR_OF_DAY, endCalendar.get(Calendar.HOUR_OF_DAY));
+            endTime.set(Calendar.MINUTE, endCalendar.get(Calendar.MINUTE));
+
+            startWorkTime.set(Calendar.HOUR_OF_DAY, workStartCalendar.get(Calendar.HOUR_OF_DAY));
+            startWorkTime.set(Calendar.MINUTE, workStartCalendar.get(Calendar.MINUTE));
+            endWorkTime.set(Calendar.HOUR_OF_DAY, workEndCalendar.get(Calendar.HOUR_OF_DAY));
+            endWorkTime.set(Calendar.MINUTE, workEndCalendar.get(Calendar.MINUTE));
+
+            if (startTime.getTime().getTime() == endTime.getTime().getTime() || (startWorkTime.getTime().getTime() < startTime.getTime().getTime() && endWorkTime.getTime().getTime() < startTime.getTime().getTime())) {
+                Toast.makeText(context, "时间参数错误", Toast.LENGTH_LONG).show();
+                return false;
+            }
+            startCalendar.setTime(startCalendar.getTime().getTime() < workStartCalendar.getTime().getTime() ? workStartCalendar.getTime() : startCalendar.getTime());
+            endCalendar.setTime(endCalendar.getTime().getTime() > workEndCalendar.getTime().getTime() ? workEndCalendar.getTime() : endCalendar.getTime());
+            MINHOUR = workStartCalendar.get(Calendar.HOUR_OF_DAY);
+            MAXHOUR = workEndCalendar.get(Calendar.HOUR_OF_DAY);
+
+        }
+        return true;
+
+    }
 
     private void initParameter() {
         startYear = startCalendar.get(Calendar.YEAR);
@@ -248,7 +335,6 @@ public class TimeSelector {
     }
 
     private void initTimer() {
-        initArrayList();
 
         if (spanYear) {
             for (int i = startYear; i <= endYear; i++) {
@@ -313,58 +399,6 @@ public class TimeSelector {
                 minute.add(fomatTimeUnit(i));
             }
         }
-
-        loadComponent();
-
-    }
-
-    private boolean excuteWorkTime() {
-        boolean res = true;
-        if (!ToolUtils.isEmpty(workStart_str) && !ToolUtils.isEmpty(workEnd_str)) {
-            String[] start = workStart_str.split(":");
-            String[] end = workEnd_str.split(":");
-            hour_workStart = Integer.parseInt(start[0]);
-            minute_workStart = Integer.parseInt(start[1]);
-            hour_workEnd = Integer.parseInt(end[0]);
-            minute_workEnd = Integer.parseInt(end[1]);
-            Calendar workStartCalendar = Calendar.getInstance();
-            Calendar workEndCalendar = Calendar.getInstance();
-            workStartCalendar.setTime(startCalendar.getTime());
-            workEndCalendar.setTime(endCalendar.getTime());
-            workStartCalendar.set(Calendar.HOUR_OF_DAY, hour_workStart);
-            workStartCalendar.set(Calendar.MINUTE, minute_workStart);
-            workEndCalendar.set(Calendar.HOUR_OF_DAY, hour_workEnd);
-            workEndCalendar.set(Calendar.MINUTE, minute_workEnd);
-
-
-            Calendar startTime = Calendar.getInstance();
-            Calendar endTime = Calendar.getInstance();
-            Calendar startWorkTime = Calendar.getInstance();
-            Calendar endWorkTime = Calendar.getInstance();
-
-            startTime.set(Calendar.HOUR_OF_DAY, startCalendar.get(Calendar.HOUR_OF_DAY));
-            startTime.set(Calendar.MINUTE, startCalendar.get(Calendar.MINUTE));
-            endTime.set(Calendar.HOUR_OF_DAY, endCalendar.get(Calendar.HOUR_OF_DAY));
-            endTime.set(Calendar.MINUTE, endCalendar.get(Calendar.MINUTE));
-
-            startWorkTime.set(Calendar.HOUR_OF_DAY, workStartCalendar.get(Calendar.HOUR_OF_DAY));
-            startWorkTime.set(Calendar.MINUTE, workStartCalendar.get(Calendar.MINUTE));
-            endWorkTime.set(Calendar.HOUR_OF_DAY, workEndCalendar.get(Calendar.HOUR_OF_DAY));
-            endWorkTime.set(Calendar.MINUTE, workEndCalendar.get(Calendar.MINUTE));
-
-
-            if (startTime.getTime().getTime() == endTime.getTime().getTime() || (startWorkTime.getTime().getTime() < startTime.getTime().getTime() && endWorkTime.getTime().getTime() < startTime.getTime().getTime())) {
-                Toast.makeText(context, "时间参数错误", Toast.LENGTH_LONG).show();
-                return false;
-            }
-            startCalendar.setTime(startCalendar.getTime().getTime() < workStartCalendar.getTime().getTime() ? workStartCalendar.getTime() : startCalendar.getTime());
-            endCalendar.setTime(endCalendar.getTime().getTime() > workEndCalendar.getTime().getTime() ? workEndCalendar.getTime() : endCalendar.getTime());
-            MINHOUR = workStartCalendar.get(Calendar.HOUR_OF_DAY);
-            MAXHOUR = workEndCalendar.get(Calendar.HOUR_OF_DAY);
-
-        }
-        return res;
-
 
     }
 
@@ -443,51 +477,41 @@ public class TimeSelector {
         month_pv.setData(month);
         day_pv.setData(day);
 
-        // TODO 修改显示的默认年、月、日
-        Calendar cal = Calendar.getInstance();
-        int _year = cal.get(Calendar.YEAR);//获取年份
-        int _month = cal.get(Calendar.MONTH) + 1;//获取月份
-        int _day = cal.get(Calendar.DAY_OF_MONTH);//获取日
-        int _hour = cal.get(Calendar.HOUR_OF_DAY);//小时
-        int _minute = cal.get(Calendar.MINUTE);//分
-        int _second = cal.get(Calendar.SECOND);//秒
+        int _year = currCalendar.get(Calendar.YEAR);//获取年份
+        int _month = currCalendar.get(Calendar.MONTH) + 1;//获取月份
+        int _day = currCalendar.get(Calendar.DAY_OF_MONTH);//获取日
+        int _hour = currCalendar.get(Calendar.HOUR_OF_DAY);//小时
+        int _minute = currCalendar.get(Calendar.MINUTE);//分
 
-        selectedCalender.setTime(cal.getTime());
+        String text = "当前的初始化的时间为 : " + _year + "年" + _month + "月" +
+                _day + "日" + _hour + "时" + _minute + "分";
+        LogUtil.d(text);
 
-        int index = year.indexOf("" + _year);
-        year_pv.setSelected(index); // 年
+        selectedCalender.setTime(currCalendar.getTime());
+        year_pv.setSelected(_year + ""); // 年
+        selectedCalender.set(Calendar.YEAR, _year);
+        monthChange(false);
+        month_pv.setSelected(_month < 10 ? "0" + _month : "" + _month);
 
-        // 月
-        index = month.indexOf("" + _month);
-//        month_pv.setSelected(index); index 返回的值为 -1
-        month_pv.setSelected(_month - 1);
-
-        // 日
-        index = day.indexOf("" + _day);
-//        day_pv.setSelected(index); index 返回的值为 -1
-        day_pv.setSelected(_day - 1);
-
-
-//        year_pv.setSelected(0);
-//        month_pv.setSelected(0);
-//        day_pv.setSelected(0);
+        selectedCalender.set(Calendar.MONTH, _month - 1);
+        dayChange(false);
+        day_pv.setSelected(_day < 10 ? "0" + _day : "" + _day);
+        selectedCalender.set(Calendar.DAY_OF_MONTH, _day);
 
         if (type == 1) {
-//            hour_pv.setSelected(0);
-//            minute_pv.setSelected(0);
 
             hour_pv.setData(hour);
             minute_pv.setData(minute);
 
             // 时
-            index = hour.indexOf("" + _hour);
-            hour_pv.setSelected(index);
+            hourChange(false);
+            hour_pv.setSelected(_hour < 10 ? "0" + _hour : "" + _hour);
 
             // 分
-            index = minute.indexOf("" + _minute);
-            minute_pv.setSelected(index);
+            selectedCalender.set(Calendar.HOUR_OF_DAY, _hour);
+            minuteChange();
+            minute_pv.setSelected(_minute < 10 ? "0" + _minute : _minute + "");
         }
-        excuteScroll();
     }
 
     private void excuteScroll() {
@@ -503,6 +527,10 @@ public class TimeSelector {
     }
 
     private void monthChange() {
+        monthChange(true);
+    }
+
+    private void monthChange(boolean isChangeDay) {
         month.clear();
         int selectedYear = selectedCalender.get(Calendar.YEAR);
         if (selectedYear == startYear) {
@@ -522,16 +550,21 @@ public class TimeSelector {
         month_pv.setData(month);
         month_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, month_pv);
-        month_pv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dayChange();
-            }
-        }, CHANGEDELAY);
-
+        if (isChangeDay) {
+            month_pv.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dayChange();
+                }
+            }, CHANGEDELAY);
+        }
     }
 
     private void dayChange() {
+        dayChange(true);
+    }
+
+    private void dayChange(boolean isChangeHour) {
         day.clear();
         int selectedYear = selectedCalender.get(Calendar.YEAR);
         int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
@@ -552,18 +585,23 @@ public class TimeSelector {
         day_pv.setData(day);
         day_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, day_pv);
-        day_pv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (type == 1) {
-                    hourChange();
-
+        if (isChangeHour) {
+            day_pv.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (type == 1) {
+                        hourChange();
+                    }
                 }
-            }
-        }, CHANGEDELAY);
+            }, CHANGEDELAY);
+        }
     }
 
     private void hourChange() {
+        hourChange(true);
+    }
+
+    private void hourChange(boolean isMinuteChange) {
         hour.clear();
         int selectedYear = selectedCalender.get(Calendar.YEAR);
         int selectedMonth = selectedCalender.get(Calendar.MONTH) + 1;
@@ -589,12 +627,14 @@ public class TimeSelector {
         hour_pv.setData(hour);
         hour_pv.setSelected(0);
         excuteAnimator(ANIMATORDELAY, hour_pv);
-        hour_pv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                minuteChange();
-            }
-        }, CHANGEDELAY);
+        if (isMinuteChange) {
+            hour_pv.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    minuteChange();
+                }
+            }, CHANGEDELAY);
+        }
 
     }
 
@@ -634,12 +674,9 @@ public class TimeSelector {
     }
 
     private void excuteAnimator(long ANIMATORDELAY, View view) {
-        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 1f,
-                0f, 1f);
-        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f,
-                1.3f, 1f);
-        PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f,
-                1.3f, 1f);
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 1f, 0f, 1f);
+        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f, 1.3f, 1f);
+        PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f, 1.3f, 1f);
         ObjectAnimator.ofPropertyValuesHolder(view, pvhX, pvhY, pvhZ).setDuration(ANIMATORDELAY).start();
     }
 

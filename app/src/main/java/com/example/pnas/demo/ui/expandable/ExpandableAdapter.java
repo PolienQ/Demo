@@ -73,7 +73,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(MyApplication.getContext(), R.layout.item_expandable, null);
+            convertView = View.inflate(MyApplication.getInstance(), R.layout.item_expandable, null);
             holder.tv = (TextView) convertView.findViewById(R.id.item_expandable_tv_group);
             convertView.setTag(holder);
         } else {
@@ -90,7 +90,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(MyApplication.getContext(), R.layout.item_expandable, null);
+            convertView = View.inflate(MyApplication.getInstance(), R.layout.item_expandable, null);
             holder.tv = (TextView) convertView.findViewById(R.id.item_expandable_tv_group);
             convertView.setTag(holder);
         } else {

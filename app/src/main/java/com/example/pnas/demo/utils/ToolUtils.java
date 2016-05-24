@@ -11,7 +11,9 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +33,6 @@ import java.util.regex.Pattern;
  */
 public class ToolUtils {
 
-    private static StringBuilder mBuilder;
 
     /**
      * 检查当前网络是否可用
@@ -85,29 +87,37 @@ public class ToolUtils {
      * @return 每个月的钱 6,300.00
      */
     public static String formatMoney(String money) {
-        if (mBuilder == null) {
-            mBuilder = new StringBuilder();
-        }
-        // 清除StringBuilder
-        mBuilder.delete(0, mBuilder.length());
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(money);
         // 获取小数点的角标
         int pointIndex = money.lastIndexOf('.');
         // 判断小数点位置进行补0
         if (pointIndex == -1) {
-            mBuilder.append(money + ".00");
+            builder.append(".00");
+            // 重新获取小数点的角标
+            pointIndex = builder.toString().lastIndexOf('.');
         } else if (money.substring(pointIndex).length() == 2) {
-            mBuilder.append(money + "0");
+            // 只有1位小数补0
+            builder.append("0");
+        } else if (money.substring(pointIndex).length() > 3) {
+            // 多于两位小数去掉后面的小数
+            builder.delete(pointIndex + 3, builder.length());
         }
-        int length = mBuilder.length();
 
         // 初始化x为小数点前一位的角标
-        for (int x = length - 3; x > 3; ) {
-            // 如果去掉后面的小数位还大于3位,就前移3个角标加上","号
+        int x = builder.length() - builder.substring(pointIndex).length();
+        while (x > 3) {
             x -= 3;
-            mBuilder.insert(x, ",");
+            builder.insert(x, ",");
+        }
+        // 把 -, 替换为 -
+        money = builder.toString();
+        if (money.contains("-,")) {
+            money = money.replace("-,", "-");
         }
 
-        return mBuilder.toString();
+        return money;
     }
 
 
@@ -139,15 +149,16 @@ public class ToolUtils {
 
     /*************
      * 创建文件夹
+     *
      * @param file_name 文件夹名
      * @return 返回创建文件件的路径
      */
-    public static String createSDCardPath(String file_name){
+    public static String createSDCardPath(String file_name) {
         String file = null;
         // 查看外部储存卡状态是否有外部扩展卡的目录
         if (Environment.MEDIA_MOUNTED.endsWith(Environment.getExternalStorageState())) {
             // 所在保存在的目录位置
-            file= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + file_name;
+            file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + file_name;
 
             LogUtil.d("TOOL", file);
 
@@ -162,12 +173,13 @@ public class ToolUtils {
 
 
     /*************
-     *  格式化时间
-     * @param time 时间
+     * 格式化时间
+     *
+     * @param time        时间
      * @param format_form 时间格式
      * @return
      */
-    public static String formatDate(long time, String format_form){
+    public static String formatDate(long time, String format_form) {
         SimpleDateFormat format = new SimpleDateFormat(format_form);
 
         String name = format.format(time);
@@ -190,7 +202,7 @@ public class ToolUtils {
             return null;
         }
         try {
-            SimpleDateFormat df = new SimpleDateFormat(pattern);
+            SimpleDateFormat df = new SimpleDateFormat(pattern, Locale.CHINA);
             return df.parse(strDate);
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,7 +221,7 @@ public class ToolUtils {
     public static String format(Date date, String pattern) {
         String returnValue = "";
         if (date != null) {
-            SimpleDateFormat df = new SimpleDateFormat(pattern);
+            SimpleDateFormat df = new SimpleDateFormat(pattern,Locale.CHINA);
             returnValue = df.format(date);
         }
         return (returnValue);
@@ -217,12 +229,13 @@ public class ToolUtils {
 
     /*********
      * 判断是否字符串是否为空
+     *
      * @param str
      * @return
      */
     public static boolean isEmpty(String str) {
 
-        if (str == null || "".equals(str) || "null".equalsIgnoreCase(str)) {
+        if (null == str || "".equals(str) || "null".equalsIgnoreCase(str)) {
             return true;
         }
 
@@ -239,43 +252,46 @@ public class ToolUtils {
 
     /************
      * 获取设备ID，如果没有就生成一个UUID
+     *
      * @param context
      * @return 设备ID 或者 UUID
      */
-    public static String getDeviceId(Context context){
+    public static String getDeviceId(Context context) {
         String deviceId;
 
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
         deviceId = tm.getDeviceId();
 
-        if (TextUtils.isEmpty(deviceId)){
+        if (TextUtils.isEmpty(deviceId)) {
             UUID uuid = UUID.randomUUID();
             deviceId = uuid.toString();
-            LogUtil.d("deviceId->"+deviceId);
+            LogUtil.d("TAG_deviceId", "deviceId->" + deviceId);
         }
 
-        LogUtil.d("deviceId->"+deviceId);
+        LogUtil.d("TAG_deviceId", "deviceId->" + deviceId);
 
         return deviceId;
     }
 
     /************
      * 获取设备名
+     *
      * @return 设备名
      */
-    public static String getDeviceName(){
+    public static String getDeviceName() {
         return new Build().MODEL;
     }
 
 
     /************
      * 把图片转换成字符串
+     *
      * @param bitmap
      * @return 字符串
      */
-    public static String convertBitmapToString(Bitmap bitmap){
-        if (bitmap == null){
+    public static String convertBitmapToString(Bitmap bitmap) {
+        if (bitmap == null) {
             return null;
         }
 
@@ -292,13 +308,14 @@ public class ToolUtils {
 
         return result;
     }
+
     /************
      * 将日期转化为周几格式
+     *
      * @param strDate "2012-12-12"
      * @return 字符串 周一
-     *
      */
-    public static String getWeekDate(String strDate){
+    public static String getWeekDate(String strDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");// 定义日期格式
         Date date = null;
         try {
@@ -306,7 +323,7 @@ public class ToolUtils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String[] weeks = { "周日", "周一", "周二", "周三", "周四", "周五", "周六" };
+        String[] weeks = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int week_index = cal.get(Calendar.DAY_OF_WEEK) - 1;
@@ -318,21 +335,92 @@ public class ToolUtils {
 
     /************
      * 将日期只保留月和日
+     *
      * @param strDate "2012-12-12"
      * @return 字符串 "12-12"
-     *
      */
-    public static String changeWeekDate(String strDate){
+    public static String changeWeekDate(String strDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");// 定义日期格式
         Date date = null;
         String str = null;
         try {
             date = format.parse(strDate);// 将字符串转换为日期
-            str= (date.getMonth()+1)+"-"+date.getDate();
+            str = (date.getMonth() + 1) + "-" + date.getDate();
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return str;
     }
+
+    /************
+     * 比较两个时期大大小
+     *
+     * @param date1 "2012-12-12 12:12" date2 "2012-12-12 12:12"
+     * @return 字符串 "12-12"
+     */
+    public static boolean compareDate(String date1, String data2) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            Date d1 = df.parse(date1);
+            Date d2 = df.parse(data2);
+            long diff = d1.getTime() - d2.getTime();
+            if (diff > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /************
+     * 将时间日期往后推1个小时
+     *
+     * @param date "2012-12-12 12:12" minutes：小时
+     * @return 字符串 "12-12"
+     */
+    public static String pushBackTime(String date, int hours) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String str = null;
+        try {
+            Date d = df.parse(date);
+            long diff = d.getTime();
+            long minu = hours * 60 * 60 * 1000;
+            str = df.format(diff + minu);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    /**
+     * 格式化银行卡号
+     *
+     * @param cardSno
+     * @return
+     */
+    public static String formatCardNumber(String cardSno) {
+        /*StringBuilder builder = new StringBuilder();
+        builder.append(cardSno.substring(0, 4));
+        builder.append(" **** **** ");
+        builder.append(cardSno.substring(cardSno.length() - (cardSno.length() == 16 ? 4 : 3), cardSno.length()));
+        return builder.toString();*/
+        return cardSno.substring(0, 4) + " **** **** " + cardSno.substring(cardSno.length() -
+                (cardSno.length() == 16 ? 4 : 3), cardSno.length());
+    }
+
+    /**
+     * 隐藏软键盘
+     */
+    public static void hideSoftInput(Activity activity) {
+        View currentFocus = activity.getCurrentFocus();
+        if (currentFocus != null) {
+            ((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(currentFocus.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
 }
 
