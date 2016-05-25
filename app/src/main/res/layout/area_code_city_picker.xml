@@ -46,19 +46,19 @@
             android:paddingRight="20dp"
             android:paddingTop="15dp">
 
-            <com.example.pnas.demo.view.timeselector.PickerView
+            <com.pnas.demo.view.timeselector.PickerView
                 android:id="@+id/province"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_160"
                 android:layout_weight="1"/>
 
-            <com.example.pnas.demo.view.timeselector.PickerView
+            <com.pnas.demo.view.timeselector.PickerView
                 android:id="@+id/city"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_160"
                 android:layout_weight="1"/>
 
-            <com.example.pnas.demo.view.timeselector.PickerView
+            <com.pnas.demo.view.timeselector.PickerView
                 android:id="@+id/couny"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/margin_160"

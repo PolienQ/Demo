@@ -4,7 +4,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center">
 
-    <com.example.pnas.demo.view.LineGridView
+    <com.pnas.demo.view.LineGridView
         android:id="@+id/main_grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

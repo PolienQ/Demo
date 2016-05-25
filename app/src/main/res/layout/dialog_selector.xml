@@ -70,7 +70,7 @@
                 android:paddingRight="20dp"
                 android:paddingTop="15dp">
 
-                <com.example.pnas.demo.view.timeselector.PickerView
+                <com.pnas.demo.view.timeselector.PickerView
                     android:id="@+id/selectView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_160"

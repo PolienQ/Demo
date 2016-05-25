@@ -82,7 +82,6 @@
     </style>
 
     <style name="CustomCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
-
         <!-- <item name="android:button">@drawable/hot_file_check</item> -->
         <item name="android:button">@drawable/bg_cloud_checkbox</item>
         <item name="android:paddingLeft">30dp</item>

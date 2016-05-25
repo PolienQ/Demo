@@ -13,6 +13,7 @@
         android:title=""
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/weipan_icon_category"
         android:icon="@mipmap/icon_action_home_category"
         android:title=""
         app:showAsAction="always">
@@ -32,4 +33,9 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/weipan_title"
+        android:title="全选"
+        android:visible="false"
+        app:showAsAction="always"/>
 </menu>

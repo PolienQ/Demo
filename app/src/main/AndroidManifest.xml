@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.example.pnas.demo"
+    package="com.pnas.demo"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -57,7 +57,8 @@
         <activity android:name=".ui.list_weipan.ListViewActivity"/>
         <activity
             android:name=".ui.list_weipan.WeiPanActivity"
-            android:theme="@style/MyAppCompatStyle"/>
+            android:theme="@style/MyAppCompatStyle"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.year.YearTabActivity"/>
         <activity android:name=".ui.recycler.RecyclerViewPagerActivity"/>
         <activity android:name=".ui.ptrlistview.PullToRefreshActivity"/>
@@ -68,6 +69,7 @@
         <activity android:name=".ui.shadow.ShadowActivity"/>
         <activity android:name=".ui.area.AreaCodeActivity"/>
         <activity android:name=".ui.city.CityActivity"/>
+        <activity android:name=".ui.photo.PhotoActivity"/>
 
         <!--  分享 -->
         <meta-data

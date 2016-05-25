@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.example.pnas.demo.view.SmartTabLayout.SmartTabLayout
+    <com.pnas.demo.view.SmartTabLayout.SmartTabLayout
         android:id="@+id/year_view_pager_tab"
         android:layout_width="match_parent"
         android:layout_height="48dp"

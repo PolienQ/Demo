@@ -3,9 +3,9 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity">
+                tools:context="com.pnas.demo.MainActivity">
 
-    <com.example.pnas.demo.ui.city.CityPicker
+    <com.pnas.demo.ui.city.CityPicker
         android:id="@+id/citypicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

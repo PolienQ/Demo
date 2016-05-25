@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+    android:id="@+id/ll_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/weipan_head_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="#F1F1F1"
         cube_ptr:ptr_duration_to_close="200"
         cube_ptr:ptr_duration_to_close_header="1000"
@@ -20,7 +23,7 @@
         <ListView
             android:id="@+id/weipan_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:choiceMode="singleChoice"
             android:fadingEdge="none"
             android:listSelector="@android:color/transparent"
@@ -29,5 +32,11 @@
             android:scrollbarStyle="outsideOverlay"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <View
+        android:id="@+id/weipan_bottom_view"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="@dimen/margin_50"/>
 
 </LinearLayout>
