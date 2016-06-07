@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
+import com.pnas.demo.view.dialog.RemindDialog;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -33,6 +34,7 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
     private Button mButton;
     private Button mBtnFile;
     private ImageView mImageView;
+    private Button mBtnDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,12 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
 
     private void initView() {
 
+        mBtnDialog = ((Button) findViewById(R.id.animation_btn_dialog));
         mButton = ((Button) findViewById(R.id.animation_btn));
         mBtnFile = ((Button) findViewById(R.id.animation_btn_file));
         mImageView = ((ImageView) findViewById(R.id.animation_iv));
 
+        mBtnDialog.setOnClickListener(this);
         mButton.setOnClickListener(this);
         mBtnFile.setOnClickListener(this);
     }
@@ -56,6 +60,14 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.animation_btn_dialog:
+
+                RemindDialog remindDialog = new RemindDialog(this);
+
+                remindDialog.show();
+
+                break;
+
             case R.id.animation_btn:
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1f, 0, 1f,

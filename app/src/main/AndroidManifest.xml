@@ -70,6 +70,9 @@
         <activity android:name=".ui.area.AreaCodeActivity"/>
         <activity android:name=".ui.city.CityActivity"/>
         <activity android:name=".ui.photo.PhotoActivity"/>
+        <activity android:name=".ui.download.DownloadActivity"/>
+        <activity android:name=".ui.db.DbActivity"/>
+        <activity android:name=".ui.eventbus.EventBusActivity"/>
 
         <!--  分享 -->
         <meta-data

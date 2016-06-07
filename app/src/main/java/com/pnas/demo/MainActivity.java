@@ -16,6 +16,9 @@ import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.ui.anmi.AnimationActivity;
 import com.pnas.demo.ui.area.AreaCodeActivity;
 import com.pnas.demo.ui.city.CityActivity;
+import com.pnas.demo.ui.db.DbActivity;
+import com.pnas.demo.ui.download.DownloadActivity;
+import com.pnas.demo.ui.eventbus.EventBusActivity;
 import com.pnas.demo.ui.list_weipan.ListViewActivity;
 import com.pnas.demo.ui.list_weipan.WeiPanActivity;
 import com.pnas.demo.ui.photo.PhotoActivity;
@@ -36,12 +39,13 @@ public class MainActivity extends BaseActivity {
 
     private String[] mStr = {"ListView", "year", "recycler", "ptr", "timer", "RecyclerView",
             "anmi", "shadow", "share", "扫描二维码", "扫描二维码2", "省市区", "城市", "微盘",
-            "photo"};
+            "photo","download","db","eventbus"};
 
     private Class[] mActivity = {ListViewActivity.class, YearTabActivity.class, RecyclerViewPagerActivity.class,
             PullToRefreshActivity.class, TimerActivity.class, RecyclerViewActivity.class, AnimationActivity.class,
             ShadowActivity.class, ShareActivity.class, ScanActivity.class, Scan2Activity.class,
-            AreaCodeActivity.class, CityActivity.class, WeiPanActivity.class, PhotoActivity.class};
+            AreaCodeActivity.class, CityActivity.class, WeiPanActivity.class, PhotoActivity.class,
+            DownloadActivity.class, DbActivity.class, EventBusActivity.class};
     private double exitTime;
 
     @Override

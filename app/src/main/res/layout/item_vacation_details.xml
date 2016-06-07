@@ -63,7 +63,7 @@
     <!--  右边的头像和信息  -->
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginLeft="15dp"
@@ -71,14 +71,13 @@
         android:layout_marginStart="15dp"
         android:layout_toEndOf="@id/item_vacation_details_02"
         android:layout_toRightOf="@id/item_vacation_details_02"
-        android:background="@drawable/shape_vacation_details"
-        android:gravity="center">
+        android:background="@drawable/shape_vacation_details">
 
         <ImageView
             android:id="@+id/item_vacation_details_empimage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_width="@dimen/margin_30"
+            android:layout_height="@dimen/margin_30"
+            android:layout_margin="@dimen/margin_10"
             android:scaleType="fitXY"
             android:src="@mipmap/icon_portrait_default"/>
 
@@ -86,7 +85,7 @@
             android:id="@+id/item_vacation_details_empname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_centerInParent="true"
             android:layout_toRightOf="@id/item_vacation_details_empimage"
             android:text="李俊杰"
             android:textColor="@color/gray_03"/>
@@ -96,11 +95,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/margin_10"
             android:text="发起申请"
-            android:textColor="@color/gray_03"/>
+            android:textColor="@color/gray_03"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="?attr/colorAccent"
+            android:gravity="center_horizontal|bottom"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:paddingBottom="4dp"
+            android:rotation="45"
+            android:singleLine="true"
+            android:text="文字"
+            android:textAppearance="?android:textAppearanceLargeInverse"
+            android:textSize="@dimen/margin_08"
+            android:translationX="25dp"
+            android:translationY="-25dp"/>
 
     </RelativeLayout>
-
 
 </RelativeLayout>

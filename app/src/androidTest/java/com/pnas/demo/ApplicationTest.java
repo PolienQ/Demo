@@ -1,4 +1,4 @@
-package com.example.pnas.demo;
+package com.pnas.demo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

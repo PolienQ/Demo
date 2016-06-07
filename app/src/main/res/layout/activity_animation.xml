@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/animation_btn_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:text="点击弹框"/>
 
-        <Button
-            android:id="@+id/animation_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击"/>
+    <Button
+        android:id="@+id/animation_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击动画"/>
 
-        <Button
-            android:id="@+id/animation_btn_file"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="获取本地图片"/>
+    <Button
+        android:id="@+id/animation_btn_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取本地图片"/>
 
-        <ImageView
-            android:id="@+id/animation_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
-    </LinearLayout>
-
-</FrameLayout>
+    <ImageView
+        android:id="@+id/animation_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"/>
+</LinearLayout>
