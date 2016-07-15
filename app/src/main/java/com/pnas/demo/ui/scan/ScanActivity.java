@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pnas.demo.R;
@@ -32,7 +33,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener {
     private static final String DECODED_BITMAP_KEY = "codedBitmap";
 
     private Button creator, scaning;
-    private EditText mEtNumber;
+    private TextView mEtNumber;
     private ImageView mIvIcon;
     private EditText mEtCreator;
 
@@ -53,7 +54,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener {
         mEtCreator = ((EditText) findViewById(R.id.scan_et_creator));
         creator = ((Button) findViewById(R.id.scan_btn_QR_creator));
         scaning = ((Button) findViewById(R.id.scan_btn_QR_scaning));
-        mEtNumber = ((EditText) findViewById(R.id.scan_et_number));
+        mEtNumber = ((TextView) findViewById(R.id.scan_et_number));
         mIvIcon = ((ImageView) findViewById(R.id.scan_iv_icon));
 
     }

@@ -3,19 +3,28 @@ package com.pnas.demo.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
+import com.pnas.demo.constacts.IConstant;
+import com.pnas.demo.ui.download.okhttp.OkHttpUtils;
 import com.pnas.demo.utils.LogUtil;
 import com.pnas.demo.utils.ToastUtil;
 import com.pnas.demo.utils.ToolUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.OkHttpClient;
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends FragmentActivity implements IConstant{
+
+    protected OkHttpClient mOkHttpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +32,23 @@ public class BaseActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        //沉浸式状态栏相关代码  必须写在setContentView()之前 5.0之后
+        /*getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }*/
+
         super.onCreate(savedInstanceState);
         MyApplication.getInstance().activityManager.add(this);
+        mOkHttpClient = OkHttpUtils.getOkHttpClient();
 
     }
 

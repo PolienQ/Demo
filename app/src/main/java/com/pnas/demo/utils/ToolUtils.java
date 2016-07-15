@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.pnas.demo.base.MyApplication;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.ParseException;
@@ -33,6 +35,9 @@ import java.util.regex.Pattern;
  */
 public class ToolUtils {
 
+    public static boolean isNetworkAvailable() {
+        return isNetworkAvailable(MyApplication.getInstance());
+    }
 
     /**
      * 检查当前网络是否可用
@@ -221,7 +226,7 @@ public class ToolUtils {
     public static String format(Date date, String pattern) {
         String returnValue = "";
         if (date != null) {
-            SimpleDateFormat df = new SimpleDateFormat(pattern,Locale.CHINA);
+            SimpleDateFormat df = new SimpleDateFormat(pattern, Locale.CHINA);
             returnValue = df.format(date);
         }
         return (returnValue);

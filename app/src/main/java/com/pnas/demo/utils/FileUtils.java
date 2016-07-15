@@ -34,7 +34,7 @@ public class FileUtils {
      * 获取图片目录
      * @return String
      * */
-    private static String getPicDir() {
+    public static String getPicDir() {
         return  getDir(IConstant.FILE_IMAGE_PATH + File.separator + "pic");
     }
 

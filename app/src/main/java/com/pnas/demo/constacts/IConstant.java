@@ -7,6 +7,8 @@ package com.pnas.demo.constacts;
  */
 public interface IConstant {
 
+    String picPath = "http://nuuneoi.com/uploads/source/playstore/cover.jpg";
+
     String FILE_IMAGE_PATH = "Demo";
 
     String UMENG_SOCIAL_SERVICE = "";

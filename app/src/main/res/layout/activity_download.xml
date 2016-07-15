@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:gravity="center_horizontal"
               android:orientation="vertical">
 
     <Button
@@ -9,5 +10,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="检查版本"/>
+
+    <Button
+        android:id="@+id/download_btn_glide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="glide"/>
+
+    <Button
+        android:id="@+id/download_btn_ok_http"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="okhttp"/>
+
+    <Button
+        android:id="@+id/download_btn_retrofit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="retrofit"/>
 
 </LinearLayout>

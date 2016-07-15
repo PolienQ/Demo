@@ -1,4 +1,4 @@
-package com.example.pnas.demo;
+package com.pnas.demo;
 
 import org.junit.Test;
 

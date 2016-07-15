@@ -6,6 +6,19 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <WebView
+        android:id="@+id/animation_webView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:isScrollContainer="false"
+        android:scrollbars="none"/>
+
+    <Button
+        android:id="@+id/animation_btn_html"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="解析HTML"/>
+
     <Button
         android:id="@+id/animation_btn_dialog"
         android:layout_width="wrap_content"

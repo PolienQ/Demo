@@ -73,6 +73,9 @@
         <activity android:name=".ui.download.DownloadActivity"/>
         <activity android:name=".ui.db.DbActivity"/>
         <activity android:name=".ui.eventbus.EventBusActivity"/>
+        <activity android:name=".ui.download.GlideActivity"/>
+        <activity android:name=".ui.download.okhttp.OkHttpActivity"/>
+        <activity android:name=".ui.download.retrofit.RetrofitActivity"/>
 
         <!--  分享 -->
         <meta-data
