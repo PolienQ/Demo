@@ -6,7 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/7/1
  * @describ
  */

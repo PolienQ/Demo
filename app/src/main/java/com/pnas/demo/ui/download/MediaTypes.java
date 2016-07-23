@@ -3,7 +3,7 @@ package com.pnas.demo.ui.download;
 import okhttp3.MediaType;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/7/1
  * @describ
  */

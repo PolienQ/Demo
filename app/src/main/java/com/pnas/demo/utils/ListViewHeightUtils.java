@@ -6,7 +6,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2015-12-20 15:10
  * @describ 嵌套的ListView高度工具类
  */

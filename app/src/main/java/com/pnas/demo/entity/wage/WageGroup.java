@@ -2,7 +2,7 @@ package com.pnas.demo.entity.wage;
 
 /***********
  *
- * @author 彭浩楠
+ * @author pans
  * @date 2015-12-14 11:31
  * @describ 所有Activity基类
  *

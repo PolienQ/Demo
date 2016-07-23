@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/6/27
  * @describ
  */

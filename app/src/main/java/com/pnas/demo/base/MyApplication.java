@@ -27,7 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.internal.Util;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2015/12/31
  * @describ
  */

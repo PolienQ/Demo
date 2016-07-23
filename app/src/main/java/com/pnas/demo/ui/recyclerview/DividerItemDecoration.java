@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/1/29
  * @describ
  */

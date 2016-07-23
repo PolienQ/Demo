@@ -16,7 +16,7 @@ import com.umeng.socialize.view.UMFriendListener;
 import java.util.Map;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/5/17
  * @describ
  */

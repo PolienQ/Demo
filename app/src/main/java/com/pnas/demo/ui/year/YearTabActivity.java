@@ -18,7 +18,7 @@ import com.pnas.demo.view.SmartTabLayout.utils.v4.FragmentPagerItems;
 import java.util.ArrayList;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/1/4
  * @describ
  */

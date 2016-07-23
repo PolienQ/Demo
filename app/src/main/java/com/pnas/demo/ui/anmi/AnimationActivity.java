@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/2/26
  * @describ
  */

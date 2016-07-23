@@ -18,7 +18,7 @@ import com.umeng.socialize.media.UMusic;
 import com.umeng.socialize.utils.Log;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/4/20
  * @describ
  */

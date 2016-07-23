@@ -11,7 +11,7 @@ import com.pnas.demo.ui.download.okhttp.OkHttpActivity;
 import com.pnas.demo.ui.download.retrofit.RetrofitActivity;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/5/26
  * @describ
  */

@@ -7,7 +7,7 @@ import android.widget.PopupWindow;
 import com.pnas.demo.R;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/5/24
  * @describ
  */

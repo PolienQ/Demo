@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * ********
  *
- * @author 彭浩楠
+ * @author pans
  * @date 2015-12-14 11:31
  * @describ 工资列表中,顶部年份和时光轴(月和薪资)的共同Info
  */

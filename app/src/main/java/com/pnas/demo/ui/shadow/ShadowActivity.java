@@ -6,7 +6,7 @@ import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/3/18
  * @describ
  */

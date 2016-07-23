@@ -4,7 +4,7 @@ import android.os.CountDownTimer;
 import android.widget.Button;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/1/20
  * @describ
  */

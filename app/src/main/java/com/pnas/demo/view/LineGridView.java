@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.GridView;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/4/23
  * @describ  拥有分割线的GridView
  */

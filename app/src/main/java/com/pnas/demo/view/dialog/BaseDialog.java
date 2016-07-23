@@ -10,7 +10,7 @@ import com.pnas.demo.R;
 
 /***********
  *
- * @author 彭浩楠
+ * @author pans
  * @date 2015-12-14 11:31
  * @describ 对话框的基类
  *

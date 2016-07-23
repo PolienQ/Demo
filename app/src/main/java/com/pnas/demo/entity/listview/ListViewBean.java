@@ -1,7 +1,7 @@
 package com.pnas.demo.entity.listview;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/1/5
  * @describ
  */

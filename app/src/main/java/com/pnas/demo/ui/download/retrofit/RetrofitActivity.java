@@ -19,7 +19,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /***********
- * @author 彭浩楠
+ * @author pans
  * @date 2016/7/4
  * @describ
  */
