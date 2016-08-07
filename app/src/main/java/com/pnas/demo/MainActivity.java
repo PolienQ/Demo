@@ -2,6 +2,7 @@ package com.pnas.demo;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -17,10 +18,11 @@ import com.pnas.demo.ui.anmi.AnimationActivity;
 import com.pnas.demo.ui.area.AreaCodeActivity;
 import com.pnas.demo.ui.city.CityActivity;
 import com.pnas.demo.ui.db.DbActivity;
+import com.pnas.demo.ui.db.DbHelper;
 import com.pnas.demo.ui.download.DownloadActivity;
 import com.pnas.demo.ui.eventbus.EventBusActivity;
+import com.pnas.demo.ui.interview.InterviewActivity;
 import com.pnas.demo.ui.list_weipan.ListViewActivity;
-import com.pnas.demo.ui.list_weipan.WeiPanActivity;
 import com.pnas.demo.ui.photo.PhotoActivity;
 import com.pnas.demo.ui.ptrlistview.PullToRefreshActivity;
 import com.pnas.demo.ui.recycler.RecyclerViewPagerActivity;
@@ -37,15 +39,15 @@ public class MainActivity extends BaseActivity {
 
     private LineGridView mGridView;
 
-    private String[] mStr = {"ListView", "year", "recycler", "ptr", "timer", "RecyclerView",
-            "anmi", "shadow", "share", "扫描二维码", "扫描二维码2", "省市区", "城市", "微盘",
-            "photo","download","db","eventbus"};
+    private String[] mStr = {"TimeLine", "year", "recycler", "ptr", "timer", "RecyclerView",
+            "anmi", "shadow", "share", "扫描二维码", "扫描二维码2", "省市区", "城市", /*"微盘",*/
+            "photo", "download", "db", "EventBus", "interview"};
 
     private Class[] mActivity = {ListViewActivity.class, YearTabActivity.class, RecyclerViewPagerActivity.class,
             PullToRefreshActivity.class, TimerActivity.class, RecyclerViewActivity.class, AnimationActivity.class,
             ShadowActivity.class, ShareActivity.class, ScanActivity.class, Scan2Activity.class,
-            AreaCodeActivity.class, CityActivity.class, WeiPanActivity.class, PhotoActivity.class,
-            DownloadActivity.class, DbActivity.class, EventBusActivity.class};
+            AreaCodeActivity.class, CityActivity.class, /*WeiPanActivity.class,*/ PhotoActivity.class,
+            DownloadActivity.class, DbActivity.class, EventBusActivity.class, InterviewActivity.class};
     private double exitTime;
 
     @Override
@@ -117,6 +119,7 @@ public class MainActivity extends BaseActivity {
             TextView tv;
             if (convertView == null) {
                 tv = new TextView(MyApplication.getInstance());
+                tv.setTypeface(MyApplication.getTypeface());
                 tv.setGravity(Gravity.CENTER);
                 tv.setTextSize(20);
                 tv.setTextColor(Color.BLACK);

@@ -1,6 +1,7 @@
 package com.pnas.demo.ui.timer;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +54,26 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
         mBtnDate = ((Button) findViewById(R.id.timer_btn_date));
 
         mTvDate = ((TextView) findViewById(R.id.timer_tv_date));
+
+        findViewById(R.id.timer_btn_countDown).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Button button = (Button) v;
+                new CountDownTimer(10 * 1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        button.setClickable(false);
+                        button.setText("重新发送 " + millisUntilFinished / 1000);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        button.setText("发送验证码");
+                        button.setClickable(true);
+                    }
+                }.start();
+            }
+        });
 
     }
 
@@ -164,6 +185,9 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
 
+            case R.id.timer_btn_countDown:
+
+                break;
         }
 
     }

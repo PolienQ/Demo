@@ -1,6 +1,7 @@
 package com.pnas.demo.ui.shadow;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
@@ -22,5 +23,17 @@ public class ShadowActivity extends BaseActivity {
 
     private void initView() {
         
+    }
+
+    public void clickJni(View view) {
+
+        presentController(JniActivity.class);
+
+    }
+
+    public void clickAIDL(View view) {
+
+        presentController(AIDLActivity.class);
+
     }
 }

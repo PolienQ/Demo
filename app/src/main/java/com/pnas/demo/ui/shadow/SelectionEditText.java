@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 /***********
  * @author pans
  * @date 2016/5/19
- * @describ
+ * @describ 点击获取焦点后会把光标移动到最后一位的编辑框
  */
 public class SelectionEditText extends EditText {
 

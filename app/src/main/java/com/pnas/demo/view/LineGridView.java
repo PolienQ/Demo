@@ -48,7 +48,8 @@ public class LineGridView extends GridView{
         if(childCount % column != 0){
             for(int j = 0 ;j < (column-childCount % column) ; j++){
                 View lastView = getChildAt(childCount - 1);
-                canvas.drawLine(lastView.getRight() + lastView.getWidth() * j, lastView.getTop(), lastView.getRight() + lastView.getWidth()* j, lastView.getBottom(), localPaint);
+                canvas.drawLine(lastView.getRight() + lastView.getWidth() * j,
+                        lastView.getTop(), lastView.getRight() + lastView.getWidth()* j, lastView.getBottom(), localPaint);
             }
         }
     }

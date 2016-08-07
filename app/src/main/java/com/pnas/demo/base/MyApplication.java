@@ -2,6 +2,7 @@ package com.pnas.demo.base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Typeface;
 import android.os.Handler;
 
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
@@ -38,6 +39,7 @@ public class MyApplication extends Application {
     private static ExecutorService executorService;
     public static int count = 60;
     public List<Activity> activityManager; // 管理Activity栈
+    private static Typeface mTypeface;
 
     @Override
     public void onCreate() {
@@ -87,6 +89,17 @@ public class MyApplication extends Application {
                     new SynchronousQueue<Runnable>());
         }
         return executorService;
+    }
+
+    public static Typeface getTypeface() {
+        if (mTypeface == null) {
+            synchronized (MyApplication.class) {
+                if (mTypeface == null) {
+                    mTypeface = Typeface.createFromAsset(getInstance().getAssets(), "fonts/chs/RuiZiYunZiKuXingCaoTiGBK.TTF");
+                }
+            }
+        }
+        return mTypeface;
     }
 
 }

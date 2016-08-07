@@ -7,21 +7,21 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_50"
-        android:layout_marginBottom="@dimen/margin_20"
         android:gravity="center"
-        android:text="111"/>
+        android:onClick="clickJni"
+        android:text="JNI"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_50"
+        android:gravity="center"
+        android:onClick="clickAIDL"
+        android:text="AIDL"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_10"
         android:background="@drawable/shadow2"/>
-
-    <com.pnas.demo.ui.shadow.SelectionEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_20"
-        android:background="@null"
-        android:text="输入输入输入输入输入输入"/>
 
     <com.pnas.demo.ui.shadow.SelectionEditText
         android:layout_width="match_parent"

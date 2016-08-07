@@ -26,6 +26,7 @@ public class RecyclerViewActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private List<String> mData;
+    private RecyclerViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,8 @@ public class RecyclerViewActivity extends BaseActivity {
         }
 
         //设置adapter
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter();
-        mRecyclerView.setAdapter(adapter);
+        mAdapter = new RecyclerViewAdapter();
+        mRecyclerView.setAdapter(mAdapter);
 
 
     }
@@ -90,10 +91,12 @@ public class RecyclerViewActivity extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
             // 设置Item的数据
             holder.tv.setText(mData.get(position));
             holder.tv.setTextColor(Color.BLACK);
+
+            holder.setRootViewClickListener(position);
 
         }
 
@@ -108,10 +111,22 @@ public class RecyclerViewActivity extends BaseActivity {
         class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
             TextView tv;
+            View itemView;
 
             public RecyclerViewHolder(View itemView) {
                 super(itemView);
+                this.itemView = itemView;
                 tv = (TextView) itemView.findViewById(R.id.item_recycler_view_tv);
+            }
+
+            public void setRootViewClickListener(final int position) {
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mData.remove(position);
+                        mAdapter.notifyItemRemoved(position);
+                    }
+                });
             }
 
         }
