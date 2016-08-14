@@ -73,6 +73,7 @@ public class MyApplication extends Application {
         // QQbugly
         CrashReport.initCrashReport(getApplicationContext(), "900030821", false);
 
+
     }
 
     public static MyApplication getInstance() {

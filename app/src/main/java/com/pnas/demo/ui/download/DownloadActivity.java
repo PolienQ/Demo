@@ -7,8 +7,11 @@ import android.widget.Button;
 
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
+import com.pnas.demo.ui.download.dagger2.Dagger2Activity;
 import com.pnas.demo.ui.download.okhttp.OkHttpActivity;
 import com.pnas.demo.ui.download.retrofit.RetrofitActivity;
+import com.pnas.demo.ui.download.rx.RxAndroidActivity;
+import com.pnas.demo.ui.download.rx.RxJavaActivity;
 
 /***********
  * @author pans
@@ -21,6 +24,9 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     private Button mBtnGlide;
     private Button mBtnOkHttp;
     private Button mBtnRetrofit;
+    private Button mBtnRxJava;
+    private Button mBtnRxAndroid;
+    private Button mBtnDagger2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,10 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         mBtnOkHttp = ((Button) findViewById(R.id.download_btn_ok_http));
         mBtnRetrofit = ((Button) findViewById(R.id.download_btn_retrofit));
 
+        mBtnRxJava = ((Button) findViewById(R.id.download_btn_rx_java));
+        mBtnRxAndroid = ((Button) findViewById(R.id.download_btn_rx_android));
+        mBtnDagger2 = ((Button) findViewById(R.id.download_btn_dagger2));
+
     }
 
     private void initData() {
@@ -52,6 +62,10 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         mBtnGlide.setOnClickListener(this);
         mBtnOkHttp.setOnClickListener(this);
         mBtnRetrofit.setOnClickListener(this);
+
+        mBtnRxJava.setOnClickListener(this);
+        mBtnRxAndroid.setOnClickListener(this);
+        mBtnDagger2.setOnClickListener(this);
 
     }
 
@@ -75,9 +89,16 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
             case R.id.download_btn_retrofit:
                 presentController(RetrofitActivity.class);
                 break;
-            default:
-                break;
 
+            case R.id.download_btn_rx_java:
+                presentController(RxJavaActivity.class);
+                break;
+            case R.id.download_btn_rx_android:
+                presentController(RxAndroidActivity.class);
+                break;
+            case R.id.download_btn_dagger2:
+                presentController(Dagger2Activity.class);
+                break;
         }
 
     }

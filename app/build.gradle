@@ -6,7 +6,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.3'
     defaultConfig {
-        applicationId "com.example.pnas.demo"
+        applicationId "com.pnas.demo"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -82,8 +82,13 @@ dependencies {
     compile 'com.jakewharton:butterknife:latest.release'
     apt 'com.jakewharton:butterknife-compiler:latest.release'
 
-    // rxjava
+    // RxJava RxAndroid
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
+
+    // dagger
+    apt 'com.google.dagger:dagger-compiler:2.4'
+    compile 'com.google.dagger:dagger:2.4'
+    provided 'javax.annotation:jsr250-api:1.0'
 
 }

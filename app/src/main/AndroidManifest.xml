@@ -69,12 +69,17 @@
         <activity android:name=".ui.area.AreaCodeActivity"/>
         <activity android:name=".ui.city.CityActivity"/>
         <activity android:name=".ui.photo.PhotoActivity"/>
-        <activity android:name=".ui.download.DownloadActivity"/>
         <activity android:name=".ui.db.DbActivity"/>
         <activity android:name=".ui.eventbus.EventBusActivity"/>
+
+        <!--  网络请求  -->
+        <activity android:name=".ui.download.DownloadActivity"/>
         <activity android:name=".ui.download.GlideActivity"/>
         <activity android:name=".ui.download.okhttp.OkHttpActivity"/>
         <activity android:name=".ui.download.retrofit.RetrofitActivity"/>
+        <activity android:name=".ui.download.rx.RxAndroidActivity"/>
+        <activity android:name=".ui.download.rx.RxJavaActivity"/>
+        <activity android:name=".ui.download.dagger2.Dagger2Activity"/>
 
         <!-- jni aidl -->
         <activity android:name=".ui.shadow.ShadowActivity"/>

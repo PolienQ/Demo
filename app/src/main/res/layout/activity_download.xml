@@ -29,4 +29,22 @@
         android:layout_height="wrap_content"
         android:text="retrofit"/>
 
+    <Button
+        android:id="@+id/download_btn_rx_java"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RxJava"/>
+
+    <Button
+        android:id="@+id/download_btn_rx_android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RxAndroid"/>
+
+    <Button
+        android:id="@+id/download_btn_dagger2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dagger2"/>
+
 </LinearLayout>

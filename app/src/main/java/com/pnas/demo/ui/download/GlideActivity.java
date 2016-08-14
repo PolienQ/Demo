@@ -64,8 +64,18 @@ public class GlideActivity extends BaseActivity implements IConstant {
     private void initData() {
 
 
-        Glide.with(this).load(picPath).
-                asBitmap().centerCrop().into(new MyBitmapImageViewTarget(mImageView1));
+        Glide.with(this).load(picPath)
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(mImageView1) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(MyApplication.getInstance().getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        view.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
 
         Glide.with(this).load(picPath)
                 .transform(new CircleTransform(this))   // 变成圆形
@@ -76,7 +86,8 @@ public class GlideActivity extends BaseActivity implements IConstant {
 
 
         Request request = new Request.Builder()
-                .url("https://114.80.227.143/Employee/201605/19/1734884-1463640280923.jpg")
+//                .url("https://114.80.227.143/Employee/201605/19/1734884-1463640280923.jpg")
+                .url(picPath)
                 .build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -138,7 +149,6 @@ public class GlideActivity extends BaseActivity implements IConstant {
             int x = (toTransform.getWidth() - size) / 2;
             int y = (toTransform.getHeight() - size) / 2;
 
-            // TODO this could be acquired from the pool too
             Bitmap squared = Bitmap.createBitmap(toTransform, x, y, size, size);
 
             Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
