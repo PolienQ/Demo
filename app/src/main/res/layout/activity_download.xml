@@ -33,6 +33,7 @@
         android:id="@+id/download_btn_rx_java"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
         android:text="RxJava"/>
 
     <Button
@@ -45,6 +46,7 @@
         android:id="@+id/download_btn_dagger2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
         android:text="Dagger2"/>
 
 </LinearLayout>

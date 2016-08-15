@@ -43,9 +43,9 @@ public class Dagger2Module {
     TextView provideBigTextView() {
         TextView textView = new TextView(mContext);
         textView.setText("Dagger2的TextView2");
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) textView.getLayoutParams();
-        params.topMargin = 60;
-        textView.setLayoutParams(params);
+//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) textView.getLayoutParams();
+//        params.setMargins(0, 60, 0, 0);
+//        textView.setLayoutParams(params);
         textView.setTextSize(50);
         return textView;
     }

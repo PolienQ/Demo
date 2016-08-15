@@ -1,7 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <Button
+        android:id="@+id/rx_java_btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Observer"/>
+
+    <Button
+        android:id="@+id/rx_java_btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subscriber"/>
+
+    <Button
+        android:id="@+id/rx_java_btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义行为"/>
+
+    <Button
+        android:id="@+id/rx_java_btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:text="异步执行"/>
+
+    <Button
+        android:id="@+id/rx_java_btn8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="线程切换"/>
+
+    <Button
+        android:id="@+id/rx_java_btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:text="变换"/>
+
+    <Button
+        android:id="@+id/rx_java_btn6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="变换flatMap"/>
+
+    <Button
+        android:id="@+id/rx_java_btn7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="对多个Observable进行变换"/>
+
 
 </LinearLayout>

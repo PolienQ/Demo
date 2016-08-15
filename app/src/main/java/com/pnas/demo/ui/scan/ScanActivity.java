@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
-import com.pnas.demo.ui.scan.zxing.android.CaptureActivity;
-import com.pnas.demo.ui.scan.zxing.encode.CodeCreator;
+import com.pnas.demo.view.scan.zxing.android.CaptureActivity;
+import com.pnas.demo.view.scan.zxing.encode.CodeCreator;
 import com.pnas.demo.utils.FileUtils;
 import com.google.zxing.WriterException;
 
@@ -36,6 +36,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener {
     private TextView mEtNumber;
     private ImageView mIvIcon;
     private EditText mEtCreator;
+    private Button mBtnScan2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
 
+        mBtnScan2 = ((Button) findViewById(R.id.scan_btn_scan2));
+
         mEtCreator = ((EditText) findViewById(R.id.scan_et_creator));
         creator = ((Button) findViewById(R.id.scan_btn_QR_creator));
         scaning = ((Button) findViewById(R.id.scan_btn_QR_scaning));
@@ -65,6 +68,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener {
 
     private void initEvent() {
 
+        mBtnScan2.setOnClickListener(this);
         creator.setOnClickListener(this);
         scaning.setOnClickListener(this);
 
@@ -73,6 +77,10 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.scan_btn_scan2:
+
+                presentController(Scan2Activity.class);
+                break;
             case R.id.scan_btn_QR_creator:
 
                 String url = mEtCreator.getText().toString();

@@ -9,8 +9,13 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.pnas.demo.ui.download.dagger2.component.AppComponent;
+import com.pnas.demo.ui.download.dagger2.component.DaggerAppComponent;
+import com.pnas.demo.ui.download.dagger2.module.AppModule;
 import com.pnas.demo.utils.HttpsUtils;
 import com.pnas.demo.utils.LogUtil;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
@@ -40,6 +45,7 @@ public class MyApplication extends Application {
     public static int count = 60;
     public List<Activity> activityManager; // 管理Activity栈
     private static Typeface mTypeface;
+    private RefWatcher mRefWatcher;
 
     @Override
     public void onCreate() {
@@ -73,6 +79,8 @@ public class MyApplication extends Application {
         // QQbugly
         CrashReport.initCrashReport(getApplicationContext(), "900030821", false);
 
+        // LeakCanary
+        mRefWatcher = LeakCanary.install(this);
 
     }
 
@@ -86,7 +94,7 @@ public class MyApplication extends Application {
 
     public static synchronized ExecutorService getExecutorService() {
         if (executorService == null) {
-            executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60, TimeUnit.SECONDS,
+            executorService = new ThreadPoolExecutor(3, Integer.MAX_VALUE, 60, TimeUnit.SECONDS,
                     new SynchronousQueue<Runnable>());
         }
         return executorService;
@@ -101,6 +109,16 @@ public class MyApplication extends Application {
             }
         }
         return mTypeface;
+    }
+
+    public static RefWatcher getRefWatcher() {
+        return getInstance().mRefWatcher;
+    }
+
+    public AppComponent getAppComponent(){
+        return DaggerAppComponent.builder()
+                .appModule(new AppModule(getInstance()))
+                .build();
     }
 
 }

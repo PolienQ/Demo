@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/jni_tv_signature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/jni_tv_packname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/jni_btn_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击获取C返回的字符串"/>
+
+    <Button
+        android:id="@+id/jni_btn_set_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="修改返回"/>
 </LinearLayout>

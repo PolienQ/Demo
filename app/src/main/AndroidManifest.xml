@@ -60,17 +60,17 @@
             android:theme="@style/MyAppCompatStyle"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.year.YearTabActivity"/>
-        <activity android:name=".ui.recycler.RecyclerViewPagerActivity"/>
+        <activity android:name=".ui.launcher.LauncherActivity"/>
         <activity android:name=".ui.ptrlistview.PullToRefreshActivity"/>
         <activity android:name=".ui.timer.TimerActivity"/>
-        <activity android:name=".ui.timer.DemoActivity"/>
         <activity android:name=".ui.recyclerview.RecyclerViewActivity"/>
         <activity android:name=".ui.anmi.AnimationActivity"/>
         <activity android:name=".ui.area.AreaCodeActivity"/>
         <activity android:name=".ui.city.CityActivity"/>
         <activity android:name=".ui.photo.PhotoActivity"/>
         <activity android:name=".ui.db.DbActivity"/>
-        <activity android:name=".ui.eventbus.EventBusActivity"/>
+        <activity android:name=".ui.web.WebActivity"/>
+        <activity android:name=".ui.video.VideoActivity"/>
 
         <!--  网络请求  -->
         <activity android:name=".ui.download.DownloadActivity"/>
@@ -81,9 +81,18 @@
         <activity android:name=".ui.download.rx.RxJavaActivity"/>
         <activity android:name=".ui.download.dagger2.Dagger2Activity"/>
 
+        <!--  通知栏  -->
+        <activity android:name=".ui.notification.NotificationActivity"/>
+        <activity android:name=".ui.notification.ProgressActivity"/>
+        <activity android:name=".ui.notification.CustomActivity"/>
+
+        <!--  检测  -->
+        <activity android:name=".ui.memory.MemoryActivity"/>
+        <activity android:name=".ui.memory.LeakCanaryActivity"/>
+
         <!-- jni aidl -->
         <activity android:name=".ui.shadow.ShadowActivity"/>
-        <activity android:name=".ui.shadow.JniActivity"/>
+        <activity android:name=".ui.shadow.jni.JniActivity"/>
         <activity android:name=".ui.shadow.AIDLActivity"/>
 
         <!--  分享 -->
@@ -102,13 +111,12 @@
         <!--  扫描二维码  -->
         <activity android:name=".ui.scan.ScanActivity"/>
         <activity
-            android:name=".ui.scan.zxing.android.CaptureActivity"
+            android:name=".view.scan.zxing.android.CaptureActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"/>
-
-        <activity android:name=".ui.scan2.Scan2Activity"/>
+        <activity android:name=".ui.scan.Scan2Activity"/>
         <activity
-            android:name=".ui.scan2.MipcaActivityCapture"
+            android:name=".view.scan.MipcaActivityCapture"
             android:screenOrientation="portrait"/>
 
         <!--  统计 在Application配置 -->

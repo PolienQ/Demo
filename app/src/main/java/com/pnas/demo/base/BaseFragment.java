@@ -43,4 +43,10 @@ public class BaseFragment extends Fragment {
         return activity.pxToDip(size);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyApplication.getRefWatcher().watch(this);
+
+    }
 }

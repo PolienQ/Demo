@@ -12,8 +12,8 @@ import dagger.Component;
  * @date 2016/8/8
  * @describ Application的Component
  */
-//@Singleton
-//@Component(modules = {AppModule.class})
+@Singleton
+@Component(modules = {AppModule.class})
 public interface AppComponent {
 
     MyApplication getApplication();

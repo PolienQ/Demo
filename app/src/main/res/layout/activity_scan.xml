@@ -5,6 +5,12 @@
               android:gravity="center"
               android:orientation="vertical">
 
+    <Button
+        android:id="@+id/scan_btn_scan2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="进入另一个二维码扫描"/>
+
     <EditText
         android:id="@+id/scan_et_creator"
         android:layout_width="wrap_content"

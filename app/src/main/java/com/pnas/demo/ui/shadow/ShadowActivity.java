@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
+import com.pnas.demo.ui.shadow.jni.JniActivity;
 
 /***********
  * @author pans

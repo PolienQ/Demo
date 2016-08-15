@@ -2,6 +2,7 @@ package com.pnas.demo.ui.download.dagger2.component;
 
 import android.widget.TextView;
 
+import com.pnas.demo.ui.download.DownloadActivity;
 import com.pnas.demo.ui.download.dagger2.Dagger2Activity;
 import com.pnas.demo.ui.download.dagger2.module.Dagger2Module;
 
@@ -16,11 +17,13 @@ import dagger.Component;
  * @describ Activity的Component
  */
 @Singleton
-@Component(dependencies = AppComponent.class, modules = {Dagger2Module.class})
+@Component(/*dependencies = AppComponent.class,*/ modules = {Dagger2Module.class})
 public interface Dagger2Component {
 
-    //对MainActivity进行依赖注入
+    //对MainActivity进行依赖注入 ; 标明被注入的参数
     void inject(Dagger2Activity dagger2Activity);
+
+    void inject(DownloadActivity dagger2Activity);
 
     @Named("text_view")
     TextView provideTextView();
