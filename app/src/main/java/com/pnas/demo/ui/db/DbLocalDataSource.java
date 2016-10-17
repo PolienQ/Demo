@@ -6,8 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.entity.db.StudentInfo;
 import com.pnas.demo.ui.db.DbConstants.StudentEntry;
+
+import java.util.ArrayList;
 
 /***********
  * @author pans
@@ -21,15 +24,15 @@ public class DbLocalDataSource {
     private DbHelper mDbHelp;
 
     // Prevent direct instantiation.
-    private DbLocalDataSource(Context context) {
-        mDbHelp = new DbHelper(context);
+    private DbLocalDataSource() {
+        mDbHelp = new DbHelper(MyApplication.getInstance());
     }
 
-    public static DbLocalDataSource getInstance(Context context) {
+    public static DbLocalDataSource getInstance() {
         if (INSTANCE == null) {
             synchronized (DbLocalDataSource.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new DbLocalDataSource(context);
+                    INSTANCE = new DbLocalDataSource();
                 }
             }
         }
@@ -39,21 +42,21 @@ public class DbLocalDataSource {
     public long addStudent(StudentInfo info, boolean isSql) {
 
         // 返回-1代表添加失败
-        long result = -1;
+        long result;
         SQLiteDatabase db = mDbHelp.getWritableDatabase();
 
         if (isSql) {
             String sql = "insert into " + StudentEntry.TABLE_NAME + " (" +
-                    "name,sex,age,height,birthday) values('王老七','男',51,176,'1990-09-09');";
+                    "name,sex,age,score,birthday) values('王老七','男',51,80,'1990-09-09');";
             db.execSQL(sql);
-            result = -2;
+            result = 1;
         } else {
 
             ContentValues values = new ContentValues();
             values.put(StudentEntry.COLUMN_NAME_NAME, info.name);
             values.put(StudentEntry.COLUMN_NAME_SEX, info.sex);
             values.put(StudentEntry.COLUMN_NAME_AGE, info.age);
-            values.put(StudentEntry.COLUMN_NAME_HEIGHT, info.height);
+            values.put(StudentEntry.COLUMN_NAME_SCORE, info.score);
             values.put(StudentEntry.COLUMN_NAME_BIRTHDAY, info.birthday);
 
             result = db.insert(StudentEntry.TABLE_NAME, null, values);
@@ -65,7 +68,7 @@ public class DbLocalDataSource {
 
     public long updateStudent(StudentInfo info, boolean isSql) {
 
-        long result = -1;
+        long result;
         SQLiteDatabase db = mDbHelp.getWritableDatabase();
 
         if (isSql) {
@@ -76,12 +79,35 @@ public class DbLocalDataSource {
         } else {
 
             ContentValues values = new ContentValues();
-            values.put(StudentEntry.COLUMN_NAME_AGE, info.age);
+            values.put(StudentEntry.COLUMN_NAME_SCORE, info.score);
 
             String selection = StudentEntry.COLUMN_NAME_NAME + " LIKE ?";
-            String[] selectionArgs = {info.age + ""};
+            String[] selectionArgs = {info.name};
 
             result = db.update(StudentEntry.TABLE_NAME, values, selection, selectionArgs);
+        }
+
+        db.close();
+
+        return result;
+    }
+
+    public Long insertStudent(boolean isSql) {
+        long result = -1;
+        SQLiteDatabase db = mDbHelp.getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            if (isSql) {
+                String sql = "DELETE FROM " + StudentEntry.TABLE_NAME + " where score = 90";
+                db.execSQL(sql);
+                result = -2;
+            } else {
+                result = db.insert(StudentEntry.TABLE_NAME, null, null);
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
         }
 
         db.close();
@@ -96,7 +122,7 @@ public class DbLocalDataSource {
         db.beginTransaction();
         try {
             if (isSql) {
-                String sql = "delete " + StudentEntry.TABLE_NAME;
+                String sql = "DELETE FROM " + StudentEntry.TABLE_NAME + " where score = 90";
                 db.execSQL(sql);
                 result = -2;
             } else {
@@ -125,7 +151,7 @@ public class DbLocalDataSource {
                 db.execSQL(sql);
                 result = -2;
             } else {
-                String selection = StudentEntry.COLUMN_NAME_NAME + " LIKE ?";
+                String selection = StudentEntry.COLUMN_NAME_NAME + " LIKE ? and " + StudentEntry.COLUMN_NAME_AGE + " = 23";
                 String[] selectionArgs = {name};
 
                 result = db.delete(StudentEntry.TABLE_NAME, selection, selectionArgs);
@@ -152,6 +178,36 @@ public class DbLocalDataSource {
         db.close();
     }
 
+    public ArrayList<StudentInfo> getStudent() {
+
+        ArrayList<StudentInfo> studentInfos = null;
+        SQLiteDatabase db = mDbHelp.getReadableDatabase();
+
+        Cursor c = db.query(
+                StudentEntry.TABLE_NAME, null, null, null, null, null, null);
+
+        if (c != null && c.getCount() != 0) {
+
+            studentInfos = new ArrayList<>();
+
+            while (c.moveToNext()) {
+
+                String name = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_NAME));
+                String sex = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_SEX));
+                int age = c.getInt(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_AGE));
+                int score = c.getInt(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_SCORE));
+                String birthday = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_BIRTHDAY));
+                studentInfos.add(new StudentInfo(name, sex, age, score, birthday));
+            }
+
+            c.close();
+        }
+
+        db.close();
+
+        return studentInfos;
+    }
+
     public StudentInfo getStudent(String name) {
 
         StudentInfo studentInfo = null;
@@ -171,9 +227,9 @@ public class DbLocalDataSource {
             c.moveToFirst();
             String sex = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_SEX));
             int age = c.getInt(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_AGE));
-            int height = c.getInt(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_HEIGHT));
+            int score = c.getInt(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_SCORE));
             String birthday = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_BIRTHDAY));
-            studentInfo = new StudentInfo(name, sex, age, height, birthday);
+            studentInfo = new StudentInfo(name, sex, age, score, birthday);
         }
         if (c != null) {
             c.close();
@@ -183,4 +239,37 @@ public class DbLocalDataSource {
 
         return studentInfo;
     }
+
+    public ArrayList<StudentInfo> getStudent(String[] columns, String selection,
+                                             String[] selectionArgs, String groupBy, String having,
+                                             String orderBy) {
+
+        ArrayList<StudentInfo> studentInfos = null;
+        SQLiteDatabase db = mDbHelp.getReadableDatabase();
+
+        Cursor c = db.query(
+                StudentEntry.TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy);
+
+        if (c != null && c.getCount() != 0) {
+
+            studentInfos = new ArrayList<>();
+
+            while (c.moveToNext()) {
+
+                String name = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_NAME));
+                String sex = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_SEX));
+                int age = c.getInt(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_AGE));
+                int score = c.getInt(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_SCORE));
+                String birthday = c.getString(c.getColumnIndexOrThrow(StudentEntry.COLUMN_NAME_BIRTHDAY));
+                studentInfos.add(new StudentInfo(name, sex, age, score, birthday));
+
+            }
+            c.close();
+        }
+
+        db.close();
+
+        return studentInfos;
+    }
+
 }

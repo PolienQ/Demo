@@ -17,7 +17,7 @@ public class DbConstants {
         String COLUMN_NAME_SEX = "sex";
         String COLUMN_NAME_AGE = "age";
         String COLUMN_NAME_BIRTHDAY = "birthday";
-        String COLUMN_NAME_HEIGHT = "height";
+        String COLUMN_NAME_SCORE = "score";
 
     }
 

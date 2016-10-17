@@ -35,9 +35,10 @@ public class DbAdapter extends RecyclerView.Adapter<DbAdapter.DbViewHolder> impl
         mData.add("删除数据");
         mData.add("插入数据");
         mData.add("修改数据");
-        mData.add("添加数据");
-        mData.add("添加数据");
-        mData.add("添加数据");
+        mData.add("查询数据");
+        mData.add("升序");
+        mData.add("总和");
+        mData.add("90分以上");
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.pnas.demo.ui.download.dagger2.module;
 
-import android.os.Environment;
-
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

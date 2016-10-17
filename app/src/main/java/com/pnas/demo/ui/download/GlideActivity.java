@@ -12,7 +12,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
@@ -24,12 +23,23 @@ import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.constacts.IConstant;
 import com.pnas.demo.utils.BitmapUtils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.internal.io.FileSystem;
+import okio.Buffer;
+import okio.BufferedSink;
+import okio.BufferedSource;
+import okio.Okio;
 
 /***********
  * @author pans
@@ -78,7 +88,7 @@ public class GlideActivity extends BaseActivity implements IConstant {
                 });
 
         Glide.with(this).load(picPath)
-                .transform(new CircleTransform(this))   // 变成圆形
+                .transform(new CircleTransform(MyApplication.getInstance()))   // 变成圆形
                 .diskCacheStrategy(DiskCacheStrategy.ALL)   // 缓存不同大小尺寸的图片
 //                .override(100, 100) // 缩放
 //                .centerCrop() // 图片太大时显示图片的中间位置
@@ -96,21 +106,47 @@ public class GlideActivity extends BaseActivity implements IConstant {
             }
 
             @Override
-            public void onResponse(Call call, final Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
 
-                MyApplication.getExecutorService().execute(new Runnable() {
+
+                File file = new File(memPath);
+                if (!file.exists() && file.mkdirs()) {
+                    return;
+                }
+                file = new File(file, "GlidePic.jpg");
+
+                InputStream inputStream = response.body().byteStream();
+                final Bitmap bitmap = BitmapUtils.readBitmap(inputStream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(file));
+
+                /*BufferedSource picSource = response.body().source();
+                byte[] b = new byte[2048];
+                int len;
+                if (!file.exists()) {
+                    BufferedSink sink = Okio.buffer(Okio.sink(file));
+                    while ((len = picSource.read(b)) != -1) {
+                        sink.write(b, 0, len);
+                        sink.flush();
+                    }
+                    sink.close();
+                    log(file.exists() ? file.getAbsolutePath() + " - 长度: " + file.length() : "图片不存在");
+                }
+
+                InputStream fileSource = Okio.buffer(Okio.source(file)).inputStream();
+                if (fileSource.available() == 0) {
+                    log("输入流为空");
+                    return;
+                }
+
+                final Bitmap bitmap = BitmapUtils.readBitmap(file.getAbsolutePath());
+                fileSource.close();*/
+
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        final Bitmap bitmap = BitmapUtils.readBitmap(response.body().byteStream());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mImageView3.setImageBitmap(bitmap);
-                            }
-                        });
+                        mImageView3.setImageBitmap(bitmap);
                     }
                 });
-
             }
         });
 
@@ -135,7 +171,7 @@ public class GlideActivity extends BaseActivity implements IConstant {
         }
     }
 
-    public class CircleTransform extends BitmapTransformation {
+    public static class CircleTransform extends BitmapTransformation {
 
         public CircleTransform(Context context) {
             super(context);
@@ -186,5 +222,10 @@ public class GlideActivity extends BaseActivity implements IConstant {
         public void registerComponents(Context context, Glide glide) {
             // register ModelLoaders here.
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

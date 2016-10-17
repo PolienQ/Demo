@@ -1,10 +1,10 @@
 package com.pnas.demo.ui.download.dagger2.module;
 
 import android.content.Context;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pnas.demo.base.MyApplication;
+import com.pnas.demo.ui.download.dagger2.TextColor;
+import com.pnas.demo.ui.download.dagger2.TextSize;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -40,13 +40,12 @@ public class Dagger2Module {
     @Provides
     @Named("big_text_view")
     @Singleton
-    TextView provideBigTextView() {
-        TextView textView = new TextView(mContext);
+    TextView provideBigTextView(Context context, @TextSize int size, @TextColor int color) {
+        TextView textView = new TextView(context);
         textView.setText("Dagger2的TextView2");
-//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) textView.getLayoutParams();
-//        params.setMargins(0, 60, 0, 0);
-//        textView.setLayoutParams(params);
-        textView.setTextSize(50);
+        textView.setPadding(0, 60, 0, 0);
+        textView.setTextSize(size);
+        textView.setTextColor(color);
         return textView;
     }
 

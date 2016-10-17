@@ -7,6 +7,7 @@ import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.constacts.IConstant;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,34 +20,36 @@ public class FileUtils {
 
     /**
      * 根据时间戳，返回一个空图片文件
-     * */
+     */
     public static File getImageFile() {
         String imagePath = getPicDir();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
         File imageFile = new File(imagePath + File.separator + "WMI_IMG_"
                 + timeStamp + ".jpg");
-        LogUtil.d("IMG_URI",imageFile.getAbsolutePath());
+        LogUtil.d("IMG_URI", imageFile.getAbsolutePath());
         return imageFile;
     }
 
 
     /**
      * 获取图片目录
+     *
      * @return String
-     * */
+     */
     public static String getPicDir() {
-        return  getDir(IConstant.FILE_IMAGE_PATH + File.separator + "pic");
+        return getDir(IConstant.FILE_IMAGE_PATH + File.separator + "pic");
     }
 
     /**
      * 获取截图存放目录
-     * */
+     */
     public static String getPicClipDir() {
-        return  getDir(IConstant.FILE_IMAGE_PATH + File.separator + "pic" + File.separator + "clip");
+        return getDir(IConstant.FILE_IMAGE_PATH + File.separator + "pic" + File.separator + "clip");
     }
 
     /**
-     *获取存储根目录
+     * 获取存储根目录
+     *
      * @param string
      * @return String
      */
@@ -60,6 +63,7 @@ public class FileUtils {
 
     /**
      * 判断sd卡是否可以用
+     *
      * @return boolean
      */
     private static boolean isSDAvailable() {
@@ -102,7 +106,7 @@ public class FileUtils {
                 .append(key_dir);
 
         String filePath = sb.toString();
-        LogUtil.d("IMG_URI","filePath-->"+filePath);
+        LogUtil.d("IMG_URI", "filePath-->" + filePath);
         File file = new File(filePath);
         if (!file.exists()) {
             if (file.mkdirs()) {
@@ -112,6 +116,22 @@ public class FileUtils {
             }
         }
         return file.getAbsolutePath();
+    }
+
+    public static String formetFileSize(long fileS) {// 转换文件大小
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        String fileSizeString = "";
+        if (fileS < 1024) {
+            fileSizeString = df.format((double) fileS) + "B";
+        } else if (fileS < 1048576) {
+            fileSizeString = df.format((double) fileS / 1024) + "K";
+        } else if (fileS < 1073741824) {
+            fileSizeString = df.format((double) fileS / 1048576) + "M";
+        } else {
+            fileSizeString = df.format((double) fileS / 1073741824) + "G";
+        }
+        return fileSizeString;
     }
 
 }

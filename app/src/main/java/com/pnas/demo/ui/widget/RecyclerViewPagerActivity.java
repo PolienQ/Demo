@@ -1,4 +1,4 @@
-package com.pnas.demo.ui.launcher;
+package com.pnas.demo.ui.widget;
 
 import android.content.Context;
 import android.os.Bundle;

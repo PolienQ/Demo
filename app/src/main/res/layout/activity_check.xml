@@ -6,21 +6,28 @@
               android:orientation="vertical">
 
     <Button
-        android:id="@+id/check_btn_leakCanary"
+        android:id="@+id/memory_btn_leakCanary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LeakCanary"/>
 
     <Button
-        android:id="@+id/check_btn_lru"
+        android:id="@+id/memory_btn_lru"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="lru"/>
 
     <Button
-        android:id="@+id/check_btn_disk"
+        android:id="@+id/memory_btn_disk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="disk"/>
+
+    <Button
+        android:id="@+id/memory_btn_mem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:text="手机内存"/>
 
 </LinearLayout>

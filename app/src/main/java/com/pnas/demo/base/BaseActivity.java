@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Window;
 
@@ -159,6 +158,9 @@ public class BaseActivity extends FragmentActivity implements IConstant {
      * @param data
      */
     public void presentController(Class cls, Intent data) {
+        if (cls == null) {
+            return;
+        }
         Intent intent = new Intent(this, cls);
         if (data != null) {
             intent.putExtras(data);
@@ -173,7 +175,7 @@ public class BaseActivity extends FragmentActivity implements IConstant {
     /**
      * 清除当前创建的通知栏
      */
-    public  void clearNotify(int notifyId) {
+    public void clearNotify(int notifyId) {
         mNotificationManager.cancel(notifyId);//删除一个特定的通知ID对应的通知
 //		mNotification.cancel(getResources().getString(R.string.app_name));
     }
@@ -181,7 +183,7 @@ public class BaseActivity extends FragmentActivity implements IConstant {
     /**
      * 清除所有通知栏
      */
-    public  void clearAllNotify() {
+    public void clearAllNotify() {
         mNotificationManager.cancelAll();// 删除你发的所有通知
     }
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.pnas.demo.view.FlowLayout
+        android:id="@+id/click_flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/click_btn_proxy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="动态代理"/>
+
+        <Button
+            android:id="@+id/click_btn_observer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="观察者模式"/>
+
+    </com.pnas.demo.view.FlowLayout>
+
+    <Button
+        android:id="@+id/click_btn_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/click_flow"
+        android:text="添加fragment"/>
+
+    <Button
+        android:id="@+id/click_btn_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/click_flow"
+        android:layout_toRightOf="@id/click_btn_fragment"
+        android:text="清空回退栈"/>
+
+    <FrameLayout
+        android:id="@+id/click_frame"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_200"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blue_03"/>
+</RelativeLayout>

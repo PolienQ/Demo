@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
 import com.pnas.demo.entity.db.StudentInfo;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /***********
  * @author pans
@@ -19,6 +23,7 @@ public class DbActivity extends BaseActivity implements DbAdapter.DbRecyclerView
 
     private RecyclerView mRecyclerView;
     private DbLocalDataSource mDbLocalDataSource;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +38,16 @@ public class DbActivity extends BaseActivity implements DbAdapter.DbRecyclerView
 
     private void init() {
 
-        mDbLocalDataSource = DbLocalDataSource.getInstance(this);
+        mDbLocalDataSource = DbLocalDataSource.getInstance();
 
     }
 
     private void initView() {
 
         mRecyclerView = ((RecyclerView) findViewById(R.id.db_recyclerView));
+        mTextView = ((TextView) findViewById(R.id.db_result));
 
-        final int horizontalCount = 5;
+        final int horizontalCount = 8;
         final int dip = pxToDip(2) / 2;
         GridLayoutManager manager = new GridLayoutManager(this, horizontalCount);
         mRecyclerView.setLayoutManager(manager);
@@ -84,21 +90,67 @@ public class DbActivity extends BaseActivity implements DbAdapter.DbRecyclerView
     @Override
     public void onClickItemListener(View view, int position, String data) {
         log("position = " + position + " data = " + data);
-
+        long result;
         switch (data) {
             case "添加数据":
-                mDbLocalDataSource.addStudent(new StudentInfo(), false);
+                result = mDbLocalDataSource.addStudent(getStudentInfo(), false);
+                if (result != -1) {
+                    log("添加了" + 1 + "条数据");
+                }
                 break;
             case "删除数据":
-                mDbLocalDataSource.deleteStudents(false);
+//                result = mDbLocalDataSource.deleteStudents(false);
+                result = mDbLocalDataSource.deleteStudent("张1", false);
+                showToast(result == 0 ? "删除失败" : "删除" + result + "条数据");
                 break;
-            case "插入数据":
+
+            case "修改数据":
+                StudentInfo info = getStudentInfo();
+                result = mDbLocalDataSource.updateStudent(info, false);
+                showToast("更新了" + result + "条数据");
 
                 break;
-            case "修改数据":
+            case "查询数据":
+                printInfo(mDbLocalDataSource.getStudent());
+                break;
+            case "查询张1":
+                printInfo(mDbLocalDataSource.getStudent(null,
+                        DbConstants.StudentEntry.COLUMN_NAME_NAME + " LIKE ?", new String[]{"张1"},
+                        null, null, null));
+                break;
+            case "升序":
+                printInfo(mDbLocalDataSource.getStudent(null, null, null,
+                        null, null, DbConstants.StudentEntry.COLUMN_NAME_SCORE /*+ " DESC"*/));
+
+                break;
+            case "总和":
+
+                break;
+            case "90分以上":
 
                 break;
         }
+    }
+
+    private StudentInfo getStudentInfo() {
+        return new StudentInfo("张" + new Random().nextInt(5), "男", 23, new Random().nextInt(20) + 80, "1945-05-09");
+    }
+
+    private void printInfo(ArrayList<StudentInfo> student) {
+
+        if (student == null || student.size() == 0) {
+            showToast("无数据");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (StudentInfo studentInfo : student) {
+            sb.append(studentInfo.toString());
+            sb.append("\r\n");
+        }
+        mTextView.setText(sb.toString());
+        showToast(student.size() + "条数据");
+
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.pnas.demo;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,41 +16,43 @@ import com.pnas.demo.base.BaseActivity;
 import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.ui.anmi.AnimationActivity;
 import com.pnas.demo.ui.area.AreaCodeActivity;
-import com.pnas.demo.ui.city.CityActivity;
+import com.pnas.demo.ui.click.ClickActivity;
 import com.pnas.demo.ui.db.DbActivity;
 import com.pnas.demo.ui.download.DownloadActivity;
 import com.pnas.demo.ui.interview.InterviewActivity;
-import com.pnas.demo.ui.launcher.LauncherActivity;
+import com.pnas.demo.ui.widget.WidgetActivity;
 import com.pnas.demo.ui.list_weipan.ListViewActivity;
 import com.pnas.demo.ui.memory.MemoryActivity;
 import com.pnas.demo.ui.notification.NotificationActivity;
-import com.pnas.demo.ui.photo.PhotoActivity;
 import com.pnas.demo.ui.ptrlistview.PullToRefreshActivity;
 import com.pnas.demo.ui.recyclerview.RecyclerViewActivity;
 import com.pnas.demo.ui.scan.ScanActivity;
 import com.pnas.demo.ui.shadow.ShadowActivity;
 import com.pnas.demo.ui.share.ShareActivity;
 import com.pnas.demo.ui.timer.TimerActivity;
-import com.pnas.demo.ui.video.VideoActivity;
 import com.pnas.demo.ui.web.WebActivity;
 import com.pnas.demo.ui.year.YearTabActivity;
 import com.pnas.demo.view.LineGridView;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MainActivity extends BaseActivity {
 
     private LineGridView mGridView;
 
     private String[] mStr = {"TimeLine", "year", "launcher", "ptr", "timer", "RecyclerView",
-            "anmi", "shadow", "share", "扫描二维码", "Notification", "省市区", "城市", /*"微盘",*/
-            "photo", "download", "db", "memory", "interview", "web", "video"};
+            "anmi", "shadow", "share", "扫描二维码", "Notification", "省市区", "点击测试", /*"城市",*/ /*"微盘",*/
+            "download", "db", "memory", "interview", "web"};
 
-    private Class[] mActivity = {ListViewActivity.class, YearTabActivity.class, LauncherActivity.class,
+    private Class[] mActivity = {ListViewActivity.class, YearTabActivity.class, WidgetActivity.class,
             PullToRefreshActivity.class, TimerActivity.class, RecyclerViewActivity.class,
             AnimationActivity.class, ShadowActivity.class, ShareActivity.class, ScanActivity.class,
-            NotificationActivity.class, AreaCodeActivity.class, CityActivity.class,
-            /*WeiPanActivity.class,*/ PhotoActivity.class, DownloadActivity.class, DbActivity.class,
-            MemoryActivity.class, InterviewActivity.class, WebActivity.class, VideoActivity.class};
+            NotificationActivity.class, AreaCodeActivity.class, ClickActivity.class, /*CityActivity.class,*/
+            /*WeiPanActivity.class,*/  DownloadActivity.class, DbActivity.class,
+            MemoryActivity.class, InterviewActivity.class, WebActivity.class};
     private double exitTime;
+    private ConcurrentHashMap<String, String> mStringStringConcurrentHashMap;
+    private SparseArray<String> mStringSparseArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

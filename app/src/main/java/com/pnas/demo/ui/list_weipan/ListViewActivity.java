@@ -76,6 +76,9 @@ public class ListViewActivity extends ListActivity {
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = View.inflate(ListViewActivity.this, R.layout.item_vacation_details, null);
+                holder.topView = convertView.findViewById(R.id.item_wage_view_top);
+                holder.middleView = convertView.findViewById(R.id.item_wage_view);
+
                 holder.tvDate = ((TextView) convertView.findViewById(R.id.item_vacation_details_date));
                 holder.tvTime = ((TextView) convertView.findViewById(R.id.item_vacation_details_time));
                 holder.ivEmpImage = ((ImageView) convertView.findViewById(R.id.item_vacation_details_empimage));
@@ -84,6 +87,14 @@ public class ListViewActivity extends ListActivity {
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
+            }
+
+            if (position == 0) {
+                holder.topView.setVisibility(View.GONE);
+                holder.middleView.setBackground(getResources().getDrawable(R.drawable.shape_wage_point_select));
+            } else {
+                holder.topView.setVisibility(View.VISIBLE);
+                holder.middleView.setBackground(getResources().getDrawable(R.drawable.shape_wage_point_normal));
             }
 
             return convertView;
@@ -98,5 +109,7 @@ public class ListViewActivity extends ListActivity {
         TextView tvEmpName;
         TextView tvStatus;
 
+        View topView;
+        View middleView;
     }
 }

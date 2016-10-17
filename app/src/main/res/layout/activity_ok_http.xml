@@ -47,9 +47,9 @@
 
     <ImageView
         android:id="@+id/ok_http_iv"
-        android:layout_width="@dimen/margin_50"
-        android:layout_height="@dimen/margin_50"
-        android:layout_margin="@dimen/margin_50"
+        android:layout_width="@dimen/margin_200"
+        android:layout_height="@dimen/margin_200"
+        android:layout_margin="@dimen/margin_20"
         android:src="@mipmap/ic_launcher"/>
 
     <TextView

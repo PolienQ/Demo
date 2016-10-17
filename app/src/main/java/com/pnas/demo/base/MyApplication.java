@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.widget.Toast;
 
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.pnas.demo.ui.download.dagger2.component.AppComponent;
 import com.pnas.demo.ui.download.dagger2.component.DaggerAppComponent;
 import com.pnas.demo.ui.download.dagger2.module.AppModule;
-import com.pnas.demo.utils.HttpsUtils;
 import com.pnas.demo.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -21,23 +19,16 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
-import okhttp3.OkHttpClient;
-import okhttp3.internal.Util;
 
 /***********
  * @author pans
  * @date 2015/12/31
  * @describ
  */
-public class MyApplication extends Application {
+public class MyApplication extends Application implements Thread.UncaughtExceptionHandler {
 
     private static MyApplication instance;
     private static Handler mHandler = new Handler();
@@ -46,6 +37,7 @@ public class MyApplication extends Application {
     public List<Activity> activityManager; // 管理Activity栈
     private static Typeface mTypeface;
     private RefWatcher mRefWatcher;
+    private static AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
@@ -57,6 +49,9 @@ public class MyApplication extends Application {
 
         // 管理Activity栈
         activityManager = new ArrayList<>();
+
+        // 捕获未捕获异常
+//        Thread.setDefaultUncaughtExceptionHandler(this);
 
         // 激光推送
         /*JPushInterface.init(this);
@@ -77,7 +72,7 @@ public class MyApplication extends Application {
 //        MobclickAgent.startWithConfigure(config);
 
         // QQbugly
-        CrashReport.initCrashReport(getApplicationContext(), "900030821", false);
+//        CrashReport.initCrashReport(getApplicationContext(), "900030821", false);
 
         // LeakCanary
         mRefWatcher = LeakCanary.install(this);
@@ -115,10 +110,28 @@ public class MyApplication extends Application {
         return getInstance().mRefWatcher;
     }
 
-    public AppComponent getAppComponent(){
-        return DaggerAppComponent.builder()
-                .appModule(new AppModule(getInstance()))
-                .build();
+    public static AppComponent getAppComponent() {
+        if (mAppComponent == null) {
+            mAppComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(getInstance()))
+                    .build();
+        }
+        return mAppComponent;
     }
 
+    @Override
+    public void uncaughtException(final Thread thread, final Throwable ex) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                System.out.println(Thread.currentThread());
+                Toast.makeText(getApplicationContext(), "thread=" + thread.getId() +
+                        "ex=" + ex.toString(), Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+        }).start();
+        SystemClock.sleep(3000);
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 }

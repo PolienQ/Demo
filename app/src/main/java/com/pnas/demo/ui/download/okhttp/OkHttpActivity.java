@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
@@ -131,6 +132,18 @@ public class OkHttpActivity extends BaseActivity {
 
         RequestBody requestBody = noFileFormBody();
 
+        Request request = new Request.Builder().put(requestBody).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
 
     }
 

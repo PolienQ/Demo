@@ -8,7 +8,9 @@ import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
 import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.ui.download.dagger2.component.DaggerDagger2Component;
+import com.pnas.demo.ui.download.dagger2.module.AppModule;
 import com.pnas.demo.ui.download.dagger2.module.Dagger2Module;
+import com.pnas.demo.ui.download.dagger2.module.NetModule;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,6 +39,7 @@ public class Dagger2Activity extends BaseActivity {
 
         DaggerDagger2Component.builder()
                 .dagger2Module(new Dagger2Module(this))
+                .appModule(new AppModule(MyApplication.getInstance()))
                 .build().inject(this);
 
         initView();

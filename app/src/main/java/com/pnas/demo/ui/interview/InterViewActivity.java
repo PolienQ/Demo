@@ -17,7 +17,7 @@ import com.pnas.demo.ui.recyclerview.DividerItemDecoration;
  * @date 2016/8/2
  * @describ
  */
-public class InterviewActivity extends BaseActivity {
+public class InterviewActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private String[] mData = {"第一条", "第二条", "第三条"};
@@ -53,6 +53,15 @@ public class InterviewActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.item_interview_container:
+                presentController(mActivity[(int) v.getTag()]);
+                break;
+        }
+    }
+
     private class InterviewAdapter extends RecyclerView.Adapter<InterviewAdapter.InterviewViewHolder> {
 
         @Override
@@ -66,7 +75,8 @@ public class InterviewActivity extends BaseActivity {
             holder.tv.setText(mData[position]);
             holder.tv.setTextColor(getResources().getColor(R.color.black_01));
 
-            holder.setRootViewClickListener(mActivity[position]);
+            holder.rootView.setTag(position);
+            holder.rootView.setOnClickListener(InterviewActivity.this);
         }
 
         @Override
@@ -76,7 +86,7 @@ public class InterviewActivity extends BaseActivity {
 
         class InterviewViewHolder extends RecyclerView.ViewHolder {
 
-            private final View rootView;
+            View rootView;
             TextView tv;
 
             /**
@@ -86,15 +96,6 @@ public class InterviewActivity extends BaseActivity {
                 super(itemView);
                 rootView = itemView;
                 tv = (TextView) itemView.findViewById(R.id.item_interview_tv);
-            }
-
-            public void setRootViewClickListener(final Class activity) {
-                rootView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        presentController(activity);
-                    }
-                });
             }
 
             public void setTvClickListener(final Class activity) {

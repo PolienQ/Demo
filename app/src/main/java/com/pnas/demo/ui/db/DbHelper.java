@@ -18,7 +18,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     private static final String TEXT_TYPE = " TEXT";
-    private static final String BOOLEAN_TYPE = " INTEGER";
+    private static final String INTEGER_TYPE = " INTEGER";
     private static final String DATE_TYPE = " date";
 
     private static final String COMMA_SEP = ",";
@@ -29,8 +29,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     DbConstants.StudentEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
                     DbConstants.StudentEntry.COLUMN_NAME_NAME + TEXT_TYPE + NOT_NULL + COMMA_SEP +
                     DbConstants.StudentEntry.COLUMN_NAME_SEX + TEXT_TYPE + NOT_NULL + COMMA_SEP +
-                    DbConstants.StudentEntry.COLUMN_NAME_AGE + BOOLEAN_TYPE + NOT_NULL + COMMA_SEP +
-                    DbConstants.StudentEntry.COLUMN_NAME_HEIGHT + BOOLEAN_TYPE + NOT_NULL + COMMA_SEP +
+                    DbConstants.StudentEntry.COLUMN_NAME_AGE + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
+                    DbConstants.StudentEntry.COLUMN_NAME_SCORE + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
                     DbConstants.StudentEntry.COLUMN_NAME_BIRTHDAY + DATE_TYPE +
                     " )";
 

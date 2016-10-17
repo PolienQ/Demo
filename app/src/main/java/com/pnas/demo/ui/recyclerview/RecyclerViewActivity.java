@@ -69,6 +69,7 @@ public class RecyclerViewActivity extends BaseActivity {
         //设置adapter
         mAdapter = new RecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
 
 
     }

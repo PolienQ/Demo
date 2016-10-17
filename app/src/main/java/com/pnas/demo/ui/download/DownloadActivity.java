@@ -11,7 +11,7 @@ import com.pnas.demo.ui.download.dagger2.Dagger2Activity;
 import com.pnas.demo.ui.download.okhttp.OkHttpActivity;
 import com.pnas.demo.ui.download.retrofit.RetrofitActivity;
 import com.pnas.demo.ui.download.rx.RxAndroidActivity;
-import com.pnas.demo.ui.download.rx.RxJavaActivity;
+import com.pnas.demo.ui.download.rx.RxjavaActivity;
 
 /***********
  * @author pans
@@ -91,7 +91,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.download_btn_rx_java:
-                presentController(RxJavaActivity.class);
+                presentController(RxjavaActivity.class);
                 break;
             case R.id.download_btn_rx_android:
                 presentController(RxAndroidActivity.class);

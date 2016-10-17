@@ -138,7 +138,7 @@ public class DialogUtils {
 
     public static BaseConfirmDialog showEditDialog(Context context, String title) {
 
-        BaseConfirmDialog dialog = new BaseConfirmDialog(context){
+        BaseConfirmDialog dialog = new BaseConfirmDialog(context) {
             @Override
             protected void init() {
                 super.init();

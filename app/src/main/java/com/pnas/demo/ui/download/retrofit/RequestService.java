@@ -17,8 +17,11 @@ import rx.Observable;
  */
 public interface RequestService {
 
+    /**
+     * 完整的url会忽略屌baseUrl
+     */
     @Headers(RetrofitManager.CACHE_CONTROL_AGE + RetrofitManager.CACHE_STALE_SHORT)
-    @GET("stories/latest")
+    @GET("http://news-at.zhihu.com/api/4/stories/latest")
     Observable<NewsList> getLatestNews();
 
     @Headers(RetrofitManager.CACHE_CONTROL_AGE + RetrofitManager.CACHE_STALE_LONG)

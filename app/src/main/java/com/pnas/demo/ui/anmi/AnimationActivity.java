@@ -1,8 +1,6 @@
 package com.pnas.demo.ui.anmi;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.ImageView;
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
 import com.pnas.demo.utils.BitmapUtils;
-import com.pnas.demo.utils.UIUtils;
 import com.pnas.demo.view.dialog.RemindDialog;
 
 import org.jsoup.Jsoup;
@@ -23,12 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -40,11 +32,11 @@ import java.util.Locale;
  */
 public class AnimationActivity extends BaseActivity implements View.OnClickListener {
 
-    private String mHtmlString = "<p> \t<span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">【产品内容】： </span></span></p> <p style=\"margin-left: 40px;\"> \t<span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">梅香咸蛋55g*4</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">五芳斋粽子（美味鲜肉粽）100g*2</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">五芳斋粽子（新疆红枣粽）100g*2</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">东北小米400g</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">八宝米400g</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">丑耳（银耳）60g</span></span></p> <p>   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">【配送范围】：全国</span></span></p>";
+    private static final String mHtmlString = "<p> \t<span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">【产品内容】： </span></span></p> <p style=\"margin-left: 40px;\"> \t<span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">梅香咸蛋55g*4</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">五芳斋粽子（美味鲜肉粽）100g*2</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">五芳斋粽子（新疆红枣粽）100g*2</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">东北小米400g</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">八宝米400g</span></span></p> <p style=\"margin-left: 40px;\">   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">丑耳（银耳）60g</span></span></p> <p>   <span style=\"font-size:12px;\"><span style=\"font-family:arial,helvetica,sans-serif;\">【配送范围】：全国</span></span></p>";
 
-    private String body = "<div class=\"content-inner\"> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   【端】杯递盏庆佳节，【午】月艾粽有奇香</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   【快】将闲愁都抛却，【乐】而谈笑享天伦</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   在中国传统佳节 - 端午节来临之际给您送上最真挚的节日祝福，祝您节日快乐！</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   我们精心准备了几款精美好礼，供您根据喜好任意选择一款。</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   所有礼物将通过快递直接寄送给您，您可以点击下列图片，了解各礼物的详细内容及可以配送的城市。</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\"> \t请在选择节日礼物的时候，留下收货人的姓名、地址、电话等准确信息，以便您的礼物可以妥善投递。</div></div>";
+    private static final String body = "<div class=\"content-inner\"> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   【端】杯递盏庆佳节，【午】月艾粽有奇香</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   【快】将闲愁都抛却，【乐】而谈笑享天伦</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   在中国传统佳节 - 端午节来临之际给您送上最真挚的节日祝福，祝您节日快乐！</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   我们精心准备了几款精美好礼，供您根据喜好任意选择一款。</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\">   所有礼物将通过快递直接寄送给您，您可以点击下列图片，了解各礼物的详细内容及可以配送的城市。</div> <div color:=\"\" font-family:=\"\" font-size:=\"\" line-height:=\"\" microsoft=\"\" padding:=\"\" style=\"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: 'Microsoft YaHei', 微软雅黑, SimHei, 黑体, Verdana, Arial, Helvetica, sans-serif; font-size: 13.3333px; line-height: 20px; white-space: nowrap;\"> \t请在选择节日礼物的时候，留下收货人的姓名、地址、电话等准确信息，以便您的礼物可以妥善投递。</div></div>";
 
-    private String zhiHuBody = "<div class=\"main-wrap content-wrap\"> <div class=\"headline\">  <div class=\"img-place-holder\"></div>    </div>  <div class=\"content-inner\">     <div class=\"question\"> <h2 class=\"question-title\">如何以「小店打烊了，客官请回吧」开头写一篇小故事？</h2>  <div class=\"answer\">  <div class=\"meta\"> <img class=\"avatar\" src=\"http://pic3.zhimg.com/9c173502d4da48949052405d95efa3d2_is.jpg\"> <span class=\"author\">芒果，</span><span class=\"bio\">赐我一场春秋大梦。</span> </div>  <div class=\"content\"> <p>&ldquo;小店打烊了，客官请回吧。&rdquo;姑娘挡着门，就是不让小道师进去。</p>\n" +
+    private static final String zhiHuBody = "<div class=\"main-wrap content-wrap\"> <div class=\"headline\">  <div class=\"img-place-holder\"></div>    </div>  <div class=\"content-inner\">     <div class=\"question\"> <h2 class=\"question-title\">如何以「小店打烊了，客官请回吧」开头写一篇小故事？</h2>  <div class=\"answer\">  <div class=\"meta\"> <img class=\"avatar\" src=\"http://pic3.zhimg.com/9c173502d4da48949052405d95efa3d2_is.jpg\"> <span class=\"author\">芒果，</span><span class=\"bio\">赐我一场春秋大梦。</span> </div>  <div class=\"content\"> <p>&ldquo;小店打烊了，客官请回吧。&rdquo;姑娘挡着门，就是不让小道师进去。</p>\n" +
             " <p>小道师此时非常无奈，第一次下山，好不容易找到一间客栈想要落脚，却还被拦在了门外。</p>\n" +
             " <p>小道师从五岁起跟着师父苦学阴阳术法十年，终于在这天，师父让他下山，想考验一下他这十年来所学的深浅。</p>\n" +
             " <p>&ldquo;灵符，有。木剑，有。罗盘，有&hellip;&hellip;&rdquo;</p>\n" +
@@ -97,7 +89,7 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
             " <hr />\n" +
             " <p>小故事一则，谢谢你看完，也希望你喜欢。</p> </div> </div>   <div class=\"view-more\"><a href=\"http://www.zhihu.com/question/47552239\">查看知乎讨论<span class=\"js-question-holder\"></span></a></div>  </div>   </div> </div>";
 
-    private String zhiHuBody2 = "<div class=\"main-wrap content-wrap\"> <div class=\"headline\">  <div class=\"img-place-holder\"></div>    </div>  <div class=\"content-inner\">     <div class=\"question\"> <h2 class=\"question-title\">如何以「小店打烊了，客官请回吧」开头写一篇小故事？</h2>  <div class=\"answer\">  <div class=\"meta\"> <img class=\"avatar\" src=\"http://pic3.zhimg.com/9c173502d4da48949052405d95efa3d2_is.jpg\"> <span class=\"author\">芒果，</span><span class=\"bio\">赐我一场春秋大梦。</span> </div>  <div class=\"content\"> <p>&ldquo;小店打烊了，客官请回吧。&rdquo;姑娘挡着门，就是不让小道师进去。</p>\n" +
+    private static final String zhiHuBody2 = "<div class=\"main-wrap content-wrap\"> <div class=\"headline\">  <div class=\"img-place-holder\"></div>    </div>  <div class=\"content-inner\">     <div class=\"question\"> <h2 class=\"question-title\">如何以「小店打烊了，客官请回吧」开头写一篇小故事？</h2>  <div class=\"answer\">  <div class=\"meta\"> <img class=\"avatar\" src=\"http://pic3.zhimg.com/9c173502d4da48949052405d95efa3d2_is.jpg\"> <span class=\"author\">芒果，</span><span class=\"bio\">赐我一场春秋大梦。</span> </div>  <div class=\"content\"> <p>&ldquo;小店打烊了，客官请回吧。&rdquo;姑娘挡着门，就是不让小道师进去。</p>\n" +
             " <p>又嘱咐了最后一次，小道师这才转身离开。刚走不到几步，被发觉有人拉着他的行囊。他一转头，几根萝卜已经塞到了他的眼前。是兔耳少年。</p>\n" +
             " <p>小故事一则，谢谢你看完，也希望你喜欢。</p> </div> </div>   <div class=\"view-more\"><a href=\"http://www.zhihu.com/question/47552239\">查看知乎讨论<span class=\"js-question-holder\"></span></a></div>  </div>   </div> </div>";
 
@@ -174,6 +166,7 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1f, 0, 1f,
                         ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
                         ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
+//                scaleAnimation.setAnimationListener();
                 scaleAnimation.setDuration(1000);
                 scaleAnimation.setFillAfter(true);
                 scaleAnimation.setInterpolator(new BounceInterpolator());
@@ -205,12 +198,16 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
                 String picPath = absolutePath + "/wmi/HRO_IMG/pic/WMI_IMG_20160615_172118714.jpg";
 //                Bitmap bitmap = BitmapFactory.decodeFile(absolutePath + "/wmi/HRO_IMG/pic/clip/1734882-1461722516148.jpg");
 
-                Bitmap bitmap = BitmapUtils.imageZoom(500, BitmapUtils.readBitmap(picPath));
+                if (new File(picPath).exists()) {
+                    Bitmap bitmap = BitmapUtils.imageZoom(500, BitmapUtils.readBitmap(picPath));
 //                Bitmap bitmap = BitmapUtils.getScaledBitmap(picPath, UIUtils.getScreenWidth(), UIUtils.getScreenHeight());
 
-                mImageView.setImageBitmap(bitmap);
+                    mImageView.setImageBitmap(bitmap);
+                } else {
 
-                showToast(new File(picPath).exists() ? "图片存在" : "图片不存在");
+                    showToast("图片不存在");
+
+                }
 
                 break;
         }

@@ -8,14 +8,12 @@ import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
 import rx.Observer;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,7 +27,7 @@ import rx.schedulers.Schedulers;
  * @date 2016/8/8
  * @describ
  */
-public class RxJavaActivity extends BaseActivity {
+public class RxjavaActivity extends BaseActivity {
 
     // 被观察者,订阅 观察者 后会执行Call里面的方法,方法参数是传入的观察者
     Observable observable = Observable.create(new Observable.OnSubscribe<String>() {
