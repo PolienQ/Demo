@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.widget.Toast;
 
+import com.pnas.demo.service.LeakUploadService;
 import com.pnas.demo.ui.download.dagger2.component.AppComponent;
 import com.pnas.demo.ui.download.dagger2.component.DaggerAppComponent;
 import com.pnas.demo.ui.download.dagger2.module.AppModule;
@@ -34,7 +35,7 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
     private static Handler mHandler = new Handler();
     private static ExecutorService executorService;
     public static int count = 60;
-    public List<Activity> activityManager; // 管理Activity栈
+    public List<Activity> activityManager = new ArrayList<>(); // 管理Activity栈
     private static Typeface mTypeface;
     private RefWatcher mRefWatcher;
     private static AppComponent mAppComponent;
@@ -44,11 +45,7 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
         super.onCreate();
 
         instance = this;
-
         LogUtil.isDebug = true;
-
-        // 管理Activity栈
-        activityManager = new ArrayList<>();
 
         // 捕获未捕获异常
 //        Thread.setDefaultUncaughtExceptionHandler(this);
@@ -56,6 +53,23 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
         // 激光推送
         /*JPushInterface.init(this);
         JPushInterface.setDebugMode(true);  // 调试模式*/
+
+        umengInit();
+
+        // QQbugly
+//        CrashReport.initCrashReport(getApplicationContext(), "900030821", false);
+
+        // LeakCanary初始化
+        mRefWatcher = LeakCanary.install(this, LeakUploadService.class);
+        // release版本让其无效
+//        mRefWatcher = RefWatcher.DISABLED;
+
+    }
+
+    /**
+     * 友盟sdk初始化
+     */
+    private void umengInit() {
 
         //微信 appid appsecret
 //        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
@@ -70,12 +84,6 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
 //        Boolean isCrashEnable: 可选初始化. 是否开启crash模式
 //        MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig(this, "5718a5cee0f55a388d0022bf", "google");
 //        MobclickAgent.startWithConfigure(config);
-
-        // QQbugly
-//        CrashReport.initCrashReport(getApplicationContext(), "900030821", false);
-
-        // LeakCanary
-        mRefWatcher = LeakCanary.install(this);
 
     }
 
@@ -119,6 +127,12 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
         return mAppComponent;
     }
 
+    /**
+     * 捕获crash的异常信息
+     *
+     * @param thread
+     * @param ex
+     */
     @Override
     public void uncaughtException(final Thread thread, final Throwable ex) {
         new Thread(new Runnable() {

@@ -14,6 +14,7 @@ import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
 import com.pnas.demo.entity.listview.ListViewBean;
 import com.pnas.demo.utils.BitmapUtils;
+import com.pnas.demo.utils.ToastUtil;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -93,17 +94,22 @@ public class OkHttpActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (call.isCanceled()) {
-                    return;
-                }
 
-                Type type = new TypeToken<ListViewBean>() {
-                }.getType();
-                ListViewBean listViewBean = mGson.fromJson(response.body().charStream(), type);
+                final String string = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showLongToast("返回内容 : " + string);
+                    }
+                });
 
-                // 获取缓存
-                Response cacheResponse = response.cacheResponse();
-                listViewBean = mGson.fromJson(cacheResponse.body().charStream(), type);
+//                Type type = new TypeToken<ListViewBean>() {
+//                }.getType();
+//                ListViewBean listViewBean = mGson.fromJson(response.body().charStream(), type);
+//
+//                // 获取缓存
+//                Response cacheResponse = response.cacheResponse();
+//                listViewBean = mGson.fromJson(cacheResponse.body().charStream(), type);
 
             }
         });
@@ -250,4 +256,8 @@ public class OkHttpActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

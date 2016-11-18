@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.pnas.demo.view.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickGet"
+            android:text="GET请求"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickPost"
+            android:text="POST请求"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickJson"
+            android:text="json请求"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickGetImage"
+            android:text="图片请求"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickImageLoader"
+            android:text="图片请求(ImageLoader)"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickXml"
+            android:text="XML请求"/>
+    </com.pnas.demo.view.FlowLayout>
+
+    <ImageView
+        android:id="@+id/volley_iv"
+        android:layout_width="@dimen/margin_200"
+        android:layout_height="@dimen/margin_200"
+        android:layout_margin="@dimen/margin_20"/>
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/volley_network_image_view"
+        android:layout_width="@dimen/margin_100"
+        android:layout_height="@dimen/margin_100"
+        android:layout_margin="@dimen/margin_20"/>
+
+</LinearLayout>

@@ -8,10 +8,12 @@ import android.widget.Button;
 import com.pnas.demo.R;
 import com.pnas.demo.base.BaseActivity;
 import com.pnas.demo.ui.download.dagger2.Dagger2Activity;
+import com.pnas.demo.ui.download.https.HttpsActivity;
 import com.pnas.demo.ui.download.okhttp.OkHttpActivity;
 import com.pnas.demo.ui.download.retrofit.RetrofitActivity;
 import com.pnas.demo.ui.download.rx.RxAndroidActivity;
 import com.pnas.demo.ui.download.rx.RxjavaActivity;
+import com.pnas.demo.ui.download.volley.VolleyActivity;
 
 /***********
  * @author pans
@@ -27,6 +29,8 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     private Button mBtnRxJava;
     private Button mBtnRxAndroid;
     private Button mBtnDagger2;
+    private Button mBtnVolley;
+    private Button mBtnHttps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,9 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
 
         mBtnCheck = ((Button) findViewById(R.id.download_btn_check));
         mBtnGlide = ((Button) findViewById(R.id.download_btn_glide));
+        mBtnHttps = ((Button) findViewById(R.id.download_btn_https));
+
+        mBtnVolley = ((Button) findViewById(R.id.download_btn_volley));
         mBtnOkHttp = ((Button) findViewById(R.id.download_btn_ok_http));
         mBtnRetrofit = ((Button) findViewById(R.id.download_btn_retrofit));
 
@@ -59,7 +66,10 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     private void initEvent() {
 
         mBtnCheck.setOnClickListener(this);
+        mBtnHttps.setOnClickListener(this);
         mBtnGlide.setOnClickListener(this);
+
+        mBtnVolley.setOnClickListener(this);
         mBtnOkHttp.setOnClickListener(this);
         mBtnRetrofit.setOnClickListener(this);
 
@@ -78,8 +88,15 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
 
                 break;
 
+            case R.id.download_btn_https:
+                startActivity(new Intent(this, HttpsActivity.class));
+                break;
             case R.id.download_btn_glide:
                 startActivity(new Intent(this, GlideActivity.class));
+                break;
+
+            case R.id.download_btn_volley:
+                startActivity(new Intent(this, VolleyActivity.class));
                 break;
 
             case R.id.download_btn_ok_http:

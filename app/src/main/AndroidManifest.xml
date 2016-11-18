@@ -70,10 +70,16 @@
         <activity android:name=".ui.db.DbActivity"/>
         <activity android:name=".ui.web.WebActivity"/>
         <activity android:name=".ui.click.ClickActivity"/>
+        <activity android:name=".ui.art.ArtActivity"/>
+        <activity android:name=".ui.art.DetailActivity"/>
+        <activity android:name=".ui.art.ViewActivity"/>
+        <service android:name=".service.LeakUploadService"/>
 
         <!--  网络请求  -->
         <activity android:name=".ui.download.DownloadActivity"/>
         <activity android:name=".ui.download.GlideActivity"/>
+        <activity android:name=".ui.download.https.HttpsActivity"/>
+        <activity android:name=".ui.download.volley.VolleyActivity"/>
         <activity android:name=".ui.download.okhttp.OkHttpActivity"/>
         <activity android:name=".ui.download.retrofit.RetrofitActivity"/>
         <activity android:name=".ui.download.rx.RxAndroidActivity"/>
@@ -240,7 +246,6 @@
         </receiver>-->
         <!--                                 极光推送                                 -->
 
-        <!--  面试  -->
         <activity android:name=".ui.interview.InterviewActivity"/>
         <activity android:name=".ui.interview.FirstActivity"/>
 

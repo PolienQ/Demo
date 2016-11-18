@@ -58,7 +58,12 @@ public class MemoryActivity extends BaseActivity {
 
         final int memory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = memory / 8;
-        LruCache<String, Bitmap> stringBitmapLruCache = new LruCache<>(cacheSize);
+        LruCache<String, Bitmap> stringBitmapLruCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap value) {
+                return value.getWidth() + value.getHeight();
+            }
+        };
 
     }
 

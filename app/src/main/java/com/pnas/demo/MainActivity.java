@@ -16,6 +16,7 @@ import com.pnas.demo.base.BaseActivity;
 import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.ui.anmi.AnimationActivity;
 import com.pnas.demo.ui.area.AreaCodeActivity;
+import com.pnas.demo.ui.art.ArtActivity;
 import com.pnas.demo.ui.click.ClickActivity;
 import com.pnas.demo.ui.db.DbActivity;
 import com.pnas.demo.ui.download.DownloadActivity;
@@ -40,16 +41,16 @@ public class MainActivity extends BaseActivity {
 
     private LineGridView mGridView;
 
-    private String[] mStr = {"TimeLine", "year", "launcher", "ptr", "timer", "RecyclerView",
+    private final static String[] mStr = {"TimeLine", "year", "launcher", "ptr", "timer", "RecyclerView",
             "anmi", "shadow", "share", "扫描二维码", "Notification", "省市区", "点击测试", /*"城市",*/ /*"微盘",*/
-            "download", "db", "memory", "interview", "web"};
+            "download", "db", "memory", "interview", "web", "art"};
 
-    private Class[] mActivity = {ListViewActivity.class, YearTabActivity.class, WidgetActivity.class,
+    private final static Class[] mActivity = {ListViewActivity.class, YearTabActivity.class, WidgetActivity.class,
             PullToRefreshActivity.class, TimerActivity.class, RecyclerViewActivity.class,
             AnimationActivity.class, ShadowActivity.class, ShareActivity.class, ScanActivity.class,
             NotificationActivity.class, AreaCodeActivity.class, ClickActivity.class, /*CityActivity.class,*/
             /*WeiPanActivity.class,*/  DownloadActivity.class, DbActivity.class,
-            MemoryActivity.class, InterviewActivity.class, WebActivity.class};
+            MemoryActivity.class, InterviewActivity.class, WebActivity.class, ArtActivity.class};
     private double exitTime;
     private ConcurrentHashMap<String, String> mStringStringConcurrentHashMap;
     private SparseArray<String> mStringSparseArray;

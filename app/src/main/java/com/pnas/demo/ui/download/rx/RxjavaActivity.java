@@ -310,7 +310,6 @@ public class RxjavaActivity extends BaseActivity {
     void onClickBtn8() {
 
         JustObservable
-                .subscribeOn(Schedulers.io())
                 .map(new Func1<String, char[]>() {
                     @Override
                     public char[] call(String s) {
@@ -326,6 +325,7 @@ public class RxjavaActivity extends BaseActivity {
                         return new String(chars);
                     }
                 })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<String>() {
                     @Override
@@ -343,6 +343,11 @@ public class RxjavaActivity extends BaseActivity {
                         showToast(s);
                     }
                 });
+
+    }
+
+    @OnClick(R.id.rx_java_btn9)
+    void onClickBtn9() {
 
     }
 }

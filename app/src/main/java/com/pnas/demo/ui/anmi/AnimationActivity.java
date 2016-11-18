@@ -200,7 +200,7 @@ public class AnimationActivity extends BaseActivity implements View.OnClickListe
 
                 if (new File(picPath).exists()) {
                     Bitmap bitmap = BitmapUtils.imageZoom(500, BitmapUtils.readBitmap(picPath));
-//                Bitmap bitmap = BitmapUtils.getScaledBitmap(picPath, UIUtils.getScreenWidth(), UIUtils.getScreenHeight());
+//                Bitmap bitmap = BitmapUtils.getScaledBitmap(PIC_URL, UIUtils.getScreenWidth(), UIUtils.getScreenHeight());
 
                     mImageView.setImageBitmap(bitmap);
                 } else {

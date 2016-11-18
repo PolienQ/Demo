@@ -23,10 +23,7 @@ import com.pnas.demo.base.MyApplication;
 import com.pnas.demo.constacts.IConstant;
 import com.pnas.demo.utils.BitmapUtils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,11 +32,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.internal.io.FileSystem;
-import okio.Buffer;
-import okio.BufferedSink;
-import okio.BufferedSource;
-import okio.Okio;
 
 /***********
  * @author pans
@@ -74,7 +66,7 @@ public class GlideActivity extends BaseActivity implements IConstant {
     private void initData() {
 
 
-        Glide.with(this).load(picPath)
+        Glide.with(this).load(PIC_URL)
                 .asBitmap()
                 .centerCrop()
                 .into(new BitmapImageViewTarget(mImageView1) {
@@ -87,7 +79,7 @@ public class GlideActivity extends BaseActivity implements IConstant {
                     }
                 });
 
-        Glide.with(this).load(picPath)
+        Glide.with(this).load(PIC_URL)
                 .transform(new CircleTransform(MyApplication.getInstance()))   // 变成圆形
                 .diskCacheStrategy(DiskCacheStrategy.ALL)   // 缓存不同大小尺寸的图片
 //                .override(100, 100) // 缩放
@@ -97,7 +89,7 @@ public class GlideActivity extends BaseActivity implements IConstant {
 
         Request request = new Request.Builder()
 //                .url("https://114.80.227.143/Employee/201605/19/1734884-1463640280923.jpg")
-                .url(picPath)
+                .url(PIC_URL)
                 .build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override

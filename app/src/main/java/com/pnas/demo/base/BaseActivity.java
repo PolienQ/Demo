@@ -47,6 +47,7 @@ public class BaseActivity extends FragmentActivity implements IConstant {
 
         super.onCreate(savedInstanceState);
         MyApplication.getInstance().activityManager.add(this);
+
         mOkHttpClient = OkHttpUtils.getOkHttpClient();
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -63,23 +64,25 @@ public class BaseActivity extends FragmentActivity implements IConstant {
         }
         super.onResume();
         // 友盟统计同步
-        MobclickAgent.onResume(this);
-        JPushInterface.onResume(this);
+//        MobclickAgent.onResume(this);
+        // 极光推送
+//        JPushInterface.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         // 友盟统计同步
-        MobclickAgent.onPause(this);
-        JPushInterface.onPause(this);
+//        MobclickAgent.onPause(this);
+        // 极光推送
+//        JPushInterface.onPause(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         MyApplication.getInstance().activityManager.remove(this);
-
+        // 检测内存泄漏
         MyApplication.getRefWatcher().watch(this);
     }
 
@@ -88,8 +91,17 @@ public class BaseActivity extends FragmentActivity implements IConstant {
      *
      * @param msg
      */
-    public void showToast(String msg) {
-        ToastUtil.showShortToast(msg);
+    public void showToast(final String msg) {
+        if (Thread.currentThread() == getMainLooper().getThread()) {
+            ToastUtil.showShortToast(msg);
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtil.showShortToast(msg);
+                }
+            });
+        }
     }
 
     /***********
